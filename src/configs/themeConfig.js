@@ -6,7 +6,7 @@ const themeConfig = {
   // layout
   layout: {
     isRTL: false,
-    darkMode: false,
+    darkMode: true,
     semiDarkMode: false,
     skin: "default",
     contentWidth: "full",
