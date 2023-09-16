@@ -4,6 +4,7 @@ import Icon from "@/components/ui/Icon";
 import { Menu, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { handleLogout } from "@/pages/auth/common/store";
 
 import UserAvatar from "@/assets/images/all-img/user.png";
 
@@ -21,7 +22,7 @@ const profileLabel = () => {
       </div>
       <div className="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">
         <span className="overflow-hidden text-ellipsis whitespace-nowrap w-[85px] block">
-          Viral Gautami
+          Albert Flores
         </span>
         <span className="text-base inline-block ltr:ml-[10px] rtl:mr-[10px]">
           <Icon icon="heroicons-outline:chevron-down"></Icon>
@@ -41,49 +42,56 @@ const Profile = () => {
       icon: "heroicons-outline:user",
 
       action: () => {
-        console.log("profile");
+        navigate("/profile");
+      },
+    },
+    {
+      label: "Chat",
+      icon: "heroicons-outline:chat",
+      action: () => {
+        navigate("/chat");
       },
     },
     {
       label: "Email",
       icon: "heroicons-outline:mail",
       action: () => {
-        console.log("email");
+        navigate("/email");
       },
     },
     {
       label: "Todo",
       icon: "heroicons-outline:clipboard-check",
       action: () => {
-        console.log("todo");
+        navigate("/todo");
       },
     },
     {
       label: "Settings",
       icon: "heroicons-outline:cog",
       action: () => {
-        console.log("settings");
+        navigate("/settings");
       },
     },
     {
       label: "Price",
       icon: "heroicons-outline:credit-card",
       action: () => {
-        console.log("price");
+        navigate("/pricing");
       },
     },
     {
       label: "Faq",
       icon: "heroicons-outline:information-circle",
       action: () => {
-        console.log("faq");
+        navigate("/faq");
       },
     },
     {
       label: "Logout",
       icon: "heroicons-outline:login",
       action: () => {
-        console.log("logout");
+        dispatch(handleLogout(false));
       },
     },
   ];

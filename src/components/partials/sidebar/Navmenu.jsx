@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { Collapse } from "react-collapse";
 import Icon from "@/components/ui/Icon";
+import { toggleActiveChat } from "@/pages/app/chat/store";
 import { useDispatch } from "react-redux";
+import useMobileMenu from "@/hooks/useMobileMenu";
+import Submenu from "./Submenu";
 
 const Navmenu = ({ menus }) => {
   const [activeSubmenu, setActiveSubmenu] = useState(null);
@@ -17,7 +20,9 @@ const Navmenu = ({ menus }) => {
 
   const location = useLocation();
   const locationName = location.pathname.replace("/", "");
+  const [mobileMenu, setMobileMenu] = useMobileMenu();
   const dispatch = useDispatch();
+
   useEffect(() => {
     let submenuIndex = null;
     menus.map((item, i) => {
@@ -36,6 +41,10 @@ const Navmenu = ({ menus }) => {
     document.title = `Dashcode  | ${locationName}`;
 
     setActiveSubmenu(submenuIndex);
+    dispatch(toggleActiveChat(false));
+    if (mobileMenu) {
+      setMobileMenu(false);
+    }
   }, [location]);
 
   return (
@@ -90,34 +99,8 @@ const Navmenu = ({ menus }) => {
                 </div>
               </div>
             )}
-            <Collapse isOpened={activeSubmenu === i}>
-              <ul className="sub-menu ">
-                {item.child?.map((subItem, j) => (
-                  <li key={j} className="block pl-4 pr-1 mb-4 first:mt-4">
-                    <NavLink to={subItem.childlink}>
-                      {({ isActive }) => (
-                        <span
-                          className={`${
-                            isActive
-                              ? " text-black dark:text-white font-medium"
-                              : "text-slate-600 dark:text-slate-300"
-                          } text-sm flex space-x-3 items-center transition-all duration-150`}
-                        >
-                          <span
-                            className={`${
-                              isActive
-                                ? " bg-slate-900 dark:bg-slate-300 ring-4 ring-opacity-[15%] ring-black-500 dark:ring-slate-300 dark:ring-opacity-20"
-                                : ""
-                            } h-2 w-2 rounded-full border border-slate-600 dark:border-white inline-block flex-none`}
-                          ></span>
-                          <span className="flex-1">{subItem.childtitle}</span>
-                        </span>
-                      )}
-                    </NavLink>
-                  </li>
-                ))}
-              </ul>
-            </Collapse>
+
+            <Submenu activeSubmenu={activeSubmenu} item={item} i={i} />
           </li>
         ))}
       </ul>

@@ -8,7 +8,7 @@ function Error() {
       <img src={ErrorImage} alt="" />
       <div className="max-w-[546px] mx-auto w-full mt-12">
         <h4 className="text-slate-900 mb-4">
-          Nai madtu lya!!!
+          Page not found
         </h4>
         <div className="dark:text-white text-base font-normal mb-10">
           The page you are looking for might have been removed had its name

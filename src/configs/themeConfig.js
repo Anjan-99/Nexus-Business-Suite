@@ -1,17 +1,17 @@
 import { v4 as uuidv4 } from "uuid";
 const themeConfig = {
   app: {
-    name: "Nexus",
+    name: "Dashcode React",
   },
   // layout
   layout: {
     isRTL: false,
-    darkMode: true,
+    darkMode: false,
     semiDarkMode: false,
     skin: "default",
     contentWidth: "full",
     type: "horizontal",
-    navBarType: "sticky",
+    navBarType: "floating",
     footerType: "static",
     isMonochrome: false,
     menu: {
