@@ -60,7 +60,7 @@ export const menuItems = [
   {
     title: "documents",
     isHide: true,
-    icon: "heroicons-outline:mail",
+    icon: "ion:documents-outline",
     link: "email",
   },
 
