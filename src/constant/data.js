@@ -9,7 +9,7 @@ export const menuItems = [
 
   {
     title: "Sales",
-    icon: "heroicons-outline:document",
+    icon: "icon-park-outline:sales-report",
     link: "#",
     isHide: true,
     child: [
@@ -37,8 +37,8 @@ export const menuItems = [
   },
 
   {
-    title: "Sales",
-    icon: "heroicons-outline:document",
+    title: "Purchases",
+    icon: "bx:purchase-tag",
     link: "#",
     isHide: true,
     child: [

@@ -45,20 +45,8 @@ const Profile = () => {
         navigate("/profile");
       },
     },
-    {
-      label: "Chat",
-      icon: "heroicons-outline:chat",
-      action: () => {
-        navigate("/chat");
-      },
-    },
-    {
-      label: "Email",
-      icon: "heroicons-outline:mail",
-      action: () => {
-        navigate("/email");
-      },
-    },
+   
+    
     {
       label: "Todo",
       icon: "heroicons-outline:clipboard-check",
