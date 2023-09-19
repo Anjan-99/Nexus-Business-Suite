@@ -6,8 +6,9 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import Checkbox from "@/components/ui/Checkbox";
-import { useDispatch, useSelector } from "react-redux";
-import { handleRegister } from "./store";
+//import { useDispatch, useSelector } from "react-redux";
+//import { handleRegister } from "./store";
+import axios from 'axios';
 
 const schema = yup
   .object({
@@ -25,29 +26,29 @@ const schema = yup
   })
   .required();
 
-const RegForm = () => {
-  const dispatch = useDispatch();
-
+function RegForm () {
+  //const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [checked, setChecked] = useState(false);
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    resolver: yupResolver(schema),
-    mode: "all",
-  });
+  const {register,formState: { errors },} = useForm({resolver: yupResolver(schema),mode: "all",});
 
   const navigate = useNavigate();
 
-  const onSubmit = (data) => {
-    dispatch(handleRegister(data));
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    console.log(name, email, password);
+    try {
+      const res = axios.post('http://localhost:5000/register',{name,email,password})
+      console.log(res)
+
+    } catch (error) {
+      console.log(error)
+    }
+  }
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 ">
+    <form onSubmit={handleSubmit} className="space-y-5">
       <Textinput
         name="name"
         label="name"
@@ -56,6 +57,7 @@ const RegForm = () => {
         register={register}
         error={errors.name}
         className="h-[48px]"
+        onChange={(e) => setName(e.target.value)}
       />{" "}
       <Textinput
         name="email"
@@ -65,6 +67,7 @@ const RegForm = () => {
         register={register}
         error={errors.email}
         className="h-[48px]"
+        onChange={(e) => setEmail(e.target.value)}
       />
       <Textinput
         name="password"
@@ -74,11 +77,7 @@ const RegForm = () => {
         register={register}
         error={errors.password}
         className="h-[48px]"
-      />
-      <Checkbox
-        label="You accept our Terms and Conditions and Privacy Policy"
-        value={checked}
-        onChange={() => setChecked(!checked)}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <button className="btn btn-dark block w-full text-center">
         Create an account
@@ -86,5 +85,4 @@ const RegForm = () => {
     </form>
   );
 };
-
-export default RegForm;
+export default RegForm ;
