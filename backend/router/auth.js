@@ -2,11 +2,11 @@ const express = require("express");
 const router = express.Router();
 require("../db/conn.js");
 const User = require("../models/user.js");
-// fOR ROUTER TESTING PURPOSE
-// router.get("/", (req, res) => {
-//   res.send("Hello World! from router");
-// });
-router.post("/user", async (req, res) => {
+const bcrypt = require("bcryptjs");
+
+//Router
+//Register
+router.post("/register", async (req, res) => {
     const { name, email, password } = req.body;
     if (!name || !email || !password) {
         return res.status(422).json({ error: "Please fill all the fields" });
@@ -17,7 +17,7 @@ router.post("/user", async (req, res) => {
             return res.status(422).json({ error: "Email already exist" });
         }
         const user = new User({ name, email, password });
-        const userreg = await user.save();
+        const userreg =  await user.save();
         if (userreg){
             res.status(201).json({ message: "User registered successfully" });
         } else {
@@ -27,7 +27,30 @@ router.post("/user", async (req, res) => {
         console.log(err);
     }
 });
-    //console.log(req.body); // to print data in console for testing
-    //if function is not working
-    //res.json({message : req.body}); to print data in console for testing
+
+//Login
+router.post("/login", async (req, res) => {
+    try {
+        const { email, password } = req.body;
+        if (!email || !password){
+            return res.status(400).json({ error: "Please fill all the fields" });
+        }
+        const userLogin = await User.findOne({ email: email });
+        
+        if (userLogin){
+            const isMatch = await bcrypt.compare(password, userLogin.password);
+            if (isMatch){
+                res.status(201).json({ message: "User logged in successfully" });
+            } else {
+                res.status(400).json({ error: "Invalid credentials" });
+            }
+        } else {
+            res.status(400).json({ error: "Invalid credentials" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+
 module.exports = router;
