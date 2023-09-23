@@ -3,6 +3,7 @@ const router = express.Router();
 require("../db/conn.js");
 const User = require("../models/user.js");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
 
 //Router
 //Register
@@ -39,6 +40,7 @@ router.post("/login", async (req, res) => {
         
         if (userLogin){
             const isMatch = await bcrypt.compare(password, userLogin.password);
+            const token = await userLogin.generateAuthToken();
             if (isMatch){
                 res.status(201).json({ message: "User logged in successfully" });
             } else {
