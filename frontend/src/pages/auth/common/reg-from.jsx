@@ -6,8 +6,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import Checkbox from "@/components/ui/Checkbox";
-//import { useDispatch, useSelector } from "react-redux";
-//import { handleRegister } from "./store";
 import axios from 'axios';
 
 const schema = yup
