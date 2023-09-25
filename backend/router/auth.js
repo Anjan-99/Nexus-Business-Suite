@@ -4,6 +4,7 @@ require("../db/conn.js");
 const User = require("../models/user.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const authenticate = require("../middleware/authentication");
 
 //Router
 //Register
@@ -59,6 +60,12 @@ router.post("/login", async (req, res) => {
     } catch (err){
         console.log(err);
     }
+});
+
+//dashboard
+router.get("/dashboard", authenticate, (req, res) => {
+    res.send(req.rootUser);
+
 });
 
 

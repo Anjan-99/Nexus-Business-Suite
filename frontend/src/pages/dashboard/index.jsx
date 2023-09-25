@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "@/components/ui/Card";
 import ImageBlock1 from "@/components/partials/widget/block/image-block-1";
 import GroupChart1 from "@/components/partials/widget/chart/group-chart-1";
@@ -10,9 +10,32 @@ import RecentActivity from "@/components/partials/widget/recent-activity";
 import MostSales from "../../components/partials/widget/most-sales";
 import RadarChart from "../../components/partials/widget/chart/radar-chart";
 import HomeBredCurbs from "./HomeBredCurbs";
+import axios from "axios";
 
 const Dashboard = () => {
   const [filterMap, setFilterMap] = useState("usa");
+  const auth = async () => {
+    try{
+      const res = await axios.get('http://localhost:5000/middleware/authentication', {
+        //get token ffrom cookies
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      })
+      const data = await res.json();
+      console.log(data)
+      if (res.data.error) {
+        alert(res.data.error);
+      } else {
+        alert(res.data.message);
+      }
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+
+  }, []);
   return (
     <div>
       <HomeBredCurbs title="Dashboard" />

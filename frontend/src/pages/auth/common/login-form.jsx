@@ -39,7 +39,6 @@ const LoginForm = () => {
   const LoginUser = async (e) => {
     e.preventDefault();
     const { email, password } = user;
-    console.log(email, password);
     try {
       const res = await axios.post("http://localhost:5000/login", {
         email,
