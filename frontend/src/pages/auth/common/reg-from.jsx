@@ -4,7 +4,7 @@ import Textinput from "@/components/ui/Textinput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate ,useHistory} from "react-router-dom";
 import Checkbox from "@/components/ui/Checkbox";
 //import { useDispatch, useSelector } from "react-redux";
 //import { handleRegister } from "./store";
@@ -28,27 +28,36 @@ const schema = yup
 
 function RegForm () {
   //const dispatch = useDispatch();
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [checked, setChecked] = useState(false);
+  const [user , setUser] = useState({name:'',email:'',password:''})
   const {register,formState: { errors },} = useForm({resolver: yupResolver(schema),mode: "all",});
 
   const navigate = useNavigate();
 
+  //use state 
   const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(name, email, password);
-    try {
-      const res = axios.post('http://localhost:5000/register',{name,email,password})
-      console.log(res)
+    const { name, value } = e.target;
+    setUser({...user,[name]:value})
+  }
 
+  const PostData = async (e) => {
+    e.preventDefault();
+    const history = useHistory();
+    const { name, email, password } = user;
+    try {
+      const res = await axios.post('/register',{name,email,password})
+      console.log(res)
+      if(res.data.error){
+        alert(res.data.error)
+      }else{
+        alert(res.data.message)
+        history.push('/login')
+      }
     } catch (error) {
       console.log(error)
     }
   }
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form className="space-y-5">
       <Textinput
         name="name"
         label="name"
@@ -57,7 +66,8 @@ function RegForm () {
         register={register}
         error={errors.name}
         className="h-[48px]"
-        onChange={(e) => setName(e.target.value)}
+        value = {user.name}
+        onChange={handleSubmit}
       />{" "}
       <Textinput
         name="email"
@@ -67,19 +77,21 @@ function RegForm () {
         register={register}
         error={errors.email}
         className="h-[48px]"
-        onChange={(e) => setEmail(e.target.value)}
+        value = {user.email}
+        onChange={handleSubmit}
       />
       <Textinput
         name="password"
-        label="passwrod"
+        label="password"
         type="password"
         placeholder=" Enter your password"
         register={register}
         error={errors.password}
         className="h-[48px]"
-        onChange={(e) => setPassword(e.target.value)}
+        value = {user.password}
+        onChange={handleSubmit}
       />
-      <button className="btn btn-dark block w-full text-center">
+      <button className="btn btn-dark block w-full text-center" onClick={PostData}>
         Create an account
       </button>
     </form>
