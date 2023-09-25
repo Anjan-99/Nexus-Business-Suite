@@ -4,7 +4,7 @@ import Textinput from "@/components/ui/Textinput";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate ,useHistory} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Checkbox from "@/components/ui/Checkbox";
 //import { useDispatch, useSelector } from "react-redux";
 //import { handleRegister } from "./store";
@@ -41,16 +41,15 @@ function RegForm () {
 
   const PostData = async (e) => {
     e.preventDefault();
-    const history = useHistory();
     const { name, email, password } = user;
     try {
-      const res = await axios.post('/register',{name,email,password})
+      const res = await axios.post("http://localhost:5000/register",{name,email,password})
       console.log(res)
       if(res.data.error){
         alert(res.data.error)
       }else{
         alert(res.data.message)
-        history.push('/login')
+        navigate('/auth/login')
       }
     } catch (error) {
       console.log(error)

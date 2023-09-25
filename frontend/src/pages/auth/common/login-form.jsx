@@ -9,76 +9,79 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { handleLogin } from "./store";
 import { toast } from "react-toastify";
+import axios from "axios";
 const schema = yup
   .object({
     email: yup.string().email("Invalid email").required("Email is Required"),
     password: yup.string().required("Password is Required"),
   })
   .required();
+
+
 const LoginForm = () => {
-  const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.auth);
   const {
     register,
     formState: { errors },
-    handleSubmit,
   } = useForm({
     resolver: yupResolver(schema),
     //
     mode: "all",
   });
   const navigate = useNavigate();
-  const onSubmit = (data) => {
-    const user = users.find(
-      (user) => user.email === data.email && user.password === data.password
-    );
-    if (user) {
-      dispatch(handleLogin(true));
-      setTimeout(() => {
-        navigate("/dashboard");
-      }, 1500);
-    } else {
-      toast.error("Invalid credentials", {
-        position: "top-right",
-        autoClose: 1500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
+
+
+  const [user , setUser] = useState({email:'',password:''})
+  const handleSubmit = (e) => {
+    const { name, value } = e.target;
+    setUser({...user,[name]:value})
+  }
+
+  const LoginUser = async (e) => {
+    e.preventDefault();
+    const { email, password } = user;
+    console.log(email, password);
+    try {
+      const res = await axios.post("http://localhost:5000/login", {
+        email,
+        password,
       });
+      console.log(res);
+      if (res.data.error) {
+        alert(res.data.error);
+      } else {
+        alert(res.data.message);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const [checked, setChecked] = useState(false);
-
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 ">
+    <form className="space-y-4 ">
       <Textinput
         name="email"
         label="email"
-        defaultValue={users[0].email}
         type="email"
-        register={register}
         error={errors.email}
+        register={register}
+        value={user.email}
+        onChange={handleSubmit}
         className="h-[48px]"
+        placeholder="Enter your email"
       />
       <Textinput
         name="password"
         label="passwrod"
         type="password"
-        defaultValue={users[0].password}
-        register={register}
         error={errors.password}
+        register={register}
+        value={user.password}
+        onChange={handleSubmit}
         className="h-[48px]"
+        placeholder="Enter your password"
       />
       <div className="flex justify-between">
-        <Checkbox
-          value={checked}
-          onChange={() => setChecked(!checked)}
-          label="Keep me signed in"
-        />
         <Link
           to="/forgot-password"
           className="text-sm text-slate-800 dark:text-slate-400 leading-6 font-medium"
@@ -87,7 +90,12 @@ const LoginForm = () => {
         </Link>
       </div>
 
-      <button className="btn btn-dark block w-full text-center">Sign in</button>
+      <button
+        className="btn btn-dark block w-full text-center"
+        onClick={LoginUser}
+      >
+        Sign in
+      </button>
     </form>
   );
 };
