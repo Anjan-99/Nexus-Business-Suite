@@ -15,9 +15,10 @@ app.use(cors());
 //Router
 app.use(require("./router/auth.js"));
 
-// app.get('/login' , (req, res) => {
-//   res.send('Hello World!')
-// });
+app.get('/test' , (req, res) => {
+  res.cookie("test","heyy");
+  res.send('Hello World!')
+});
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
