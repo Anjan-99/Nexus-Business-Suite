@@ -4,10 +4,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
-import Checkbox from "@/components/ui/Checkbox";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { handleLogin } from "./store";
 import { toast } from "react-toastify";
 import axios from "axios";
 
@@ -36,19 +33,22 @@ const LoginForm = () => {
 
   const LoginUser = async (e) => {
     e.preventDefault();
+    
     const { email, password } = user;
     console.log(email, password);
     try {
       const res = await axios.post("http://localhost:5000/login", {
         email,
         password,
-      });
+      },{ withCredentials: true });
       console.log(res);
-      if (res.data.error) {
-        alert(res.data.error);
-      } else {
+      if (res) {
         alert(res.data.message);
-        navigate("/dashboard");
+        setTimeout(() => {
+          navigate("/dashboard");
+        }, 1500);
+      } else {
+        alert(res.data.error);
       }
     } catch (error) {
       console.log(error);

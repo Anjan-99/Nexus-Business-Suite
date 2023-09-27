@@ -14,19 +14,19 @@ import axios from "axios";
 
 const Dashboard = () => {
   const [filterMap, setFilterMap] = useState("usa");
+  const [userdata , setuserdata] = useState();
   const auth = async () => {
     try{
-      const res = await axios.get('http://localhost:5000/middleware/authentication', {
-        //get token ffrom cookies
-        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-      })
-      const data = await res.json();
-      console.log(data)
-      if (res.data.error) {
-        alert(res.data.error);
-      } else {
-        alert(res.data.message);
-      }
+      const res = await axios.get('http://localhost:5000/verify', {
+        method: "GET",
+        withCredentials: true,
+        header : {
+          "Content-Type" : "application/json",
+          "accept" : "application/json"
+        },
+      });
+      const user = res.data;
+      console.log(user.name);
     }
     catch(err){
       console.log(err)
@@ -34,7 +34,7 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-
+    auth();
   }, []);
   return (
     <div>
