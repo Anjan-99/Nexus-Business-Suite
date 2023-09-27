@@ -43,7 +43,7 @@ const LoginForm = () => {
       const res = await axios.post("http://localhost:5000/login", {
         email,
         password,
-      });
+      }, { withCredentials: true });
       console.log(res);
       if (res.data.error) {
         alert(res.data.error);
