@@ -14,7 +14,6 @@ import axios from "axios";
 
 const Dashboard = () => {
   const [filterMap, setFilterMap] = useState("usa");
-  const [userdata , setuserdata] = useState();
   const auth = async () => {
     try{
       const res = await axios.get('http://localhost:5000/verify', {
