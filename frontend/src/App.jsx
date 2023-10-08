@@ -2,6 +2,7 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 //home pages  & dashboard
 //import Dashboard from "./pages/dashboard";
+<<<<<<< HEAD
 
 const Client = lazy(() => import("./pages/client"));
 const Invoicetable = lazy(() => import("./pages/client/invoice_table"));
@@ -23,6 +24,13 @@ const Demo = lazy(() => "./pages/dashboard/demo");
 // const CrmPage = lazy(() => import("./pages/dashboard/crm"));
 // const ProjectPage = lazy(() => import("./pages/dashboard/project"));
 // const BankingPage = lazy(() => import("./pages/dashboard/banking"));
+=======
+const Dashboard = lazy(() => import("./pages/dashboard"));
+const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
+const CrmPage = lazy(() => import("./pages/dashboard/crm"));
+const ProjectPage = lazy(() => import("./pages/dashboard/project"));
+const BankingPage = lazy(() => import("./pages/dashboard/banking"));
+>>>>>>> parent of a8c8b5a (Client Portal Generated)
 
 const Login = lazy(() => import("./pages/auth/login"));
 const Login2 = lazy(() => import("./pages/auth/login2"));
@@ -224,6 +232,7 @@ function App() {
           }
         />
         <Route path="/*" element={<Layout />}>
+<<<<<<< HEAD
           <Route path="client" element={<Client />} />
           <Route path="invoicetable" element={<Invoicetable />} />
           <Route path="quotestable" element={<Quotetable />} />
@@ -238,6 +247,9 @@ function App() {
 
 
           {/* <Route path="dashboard" element={<Dashboard />} />
+=======
+          <Route path="dashboard" element={<Dashboard />} />
+>>>>>>> parent of a8c8b5a (Client Portal Generated)
           <Route path="ecommerce" element={<Ecommerce />} />
           <Route path="crm" element={<CrmPage />} />
           <Route path="project" element={<ProjectPage />} />
