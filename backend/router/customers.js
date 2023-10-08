@@ -1,12 +1,12 @@
 const express = require("express");
 const router = express.Router();
 require("../db/conn.js");
-const User = require("./customers.js");
+const Customers = require("../models/customers.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 router.post("/customers", async (req, res) => {
-    const { customerid, firatname, lastname, email, phone, address } = req.body;
+    const { customerid, firstname, lastname, email, phone, address } = req.body;
     try { 
         const customers = new Customers({ customerid, firstname, lastname, email, phone, address });
         const customersdetails =  await customers.save();
@@ -19,3 +19,6 @@ router.post("/customers", async (req, res) => {
         console.log(err);
     }
 });
+
+
+module.exports = router;

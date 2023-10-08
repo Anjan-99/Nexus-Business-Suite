@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 require("../db/conn.js");
-const User = require("./clientportal.js");
+const Clientportal = require("../models/clientportal.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -19,3 +19,5 @@ router.post("/clientportal", async (req, res) => {
         console.log(err);
     }
 });
+
+module.exports = router;

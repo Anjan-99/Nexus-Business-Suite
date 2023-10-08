@@ -21,21 +21,13 @@ const customersSchema = new mongoose.Schema ({
         required: true
     },
     phone: {
-        type: number,
+        type: Number,
         required: true,
     },
     address: {
         type: String,
         required: true
-    },
-    tokens: [
-        {
-            token: {
-                type: String,
-                required: true
-            }
-        }
-    ],
+    }
 })
 
 const Customers = mongoose.model("customers", customersSchema,"Customers");

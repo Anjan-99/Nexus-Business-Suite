@@ -16,15 +16,7 @@ const clientportalSchema = new mongoose.Schema ({
     portalurl: {
         type: String,
         required: true,
-    },
-    tokens: [
-        {
-            token: {
-                type: String,
-                required: true
-            }
-        }
-    ],
+    }
 })
 
 const Clientportal = mongoose.model("clientportal", clientportalSchema,"Clientportal");
