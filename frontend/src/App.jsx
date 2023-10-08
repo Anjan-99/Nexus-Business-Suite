@@ -2,6 +2,14 @@ import React, { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 // home pages  & dashboard
 //import Dashboard from "./pages/dashboard";
+
+const Client = lazy(() => import("./pages/client"));
+const Invoicetable = lazy(() => import("./pages/client/invoice_table"));
+
+
+
+
+
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
 const CrmPage = lazy(() => import("./pages/dashboard/crm"));
@@ -208,6 +216,12 @@ function App() {
           }
         />
         <Route path="/*" element={<Layout />}>
+          <Route path="client" element={<Client />} />
+          <Route path="invoicetable" element={<Invoicetable />} />
+
+
+
+
           <Route path="dashboard" element={<Dashboard />} />
           <Route path="ecommerce" element={<Ecommerce />} />
           <Route path="crm" element={<CrmPage />} />

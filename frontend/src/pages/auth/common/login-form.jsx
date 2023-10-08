@@ -45,7 +45,7 @@ const LoginForm = () => {
       if (res) {
         alert(res.data.message);
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/Client");
         }, 1500);
       } else {
         alert(res.data.error);
