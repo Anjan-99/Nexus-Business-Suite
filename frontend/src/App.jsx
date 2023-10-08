@@ -5,6 +5,12 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 const Client = lazy(() => import("./pages/client"));
 const Invoicetable = lazy(() => import("./pages/client/invoice_table"));
+const Quotestable = lazy(() => import("./pages/client/quotes_table"));
+const Salarytable = lazy(() => "./pages/client/salary_table");
+const Customertable = lazy(() => "./pages/client/cust_table");
+const Employeetable = lazy(() => "./pages/client/employee_table");
+const Expencestable = lazy(() => "./pages/client/expences_table");
+const Financialtable = lazy(() => "./pages/client/finc_repo_table");
 
 
 
@@ -218,6 +224,12 @@ function App() {
         <Route path="/*" element={<Layout />}>
           <Route path="client" element={<Client />} />
           <Route path="invoicetable" element={<Invoicetable />} />
+          <Route path="quotestable" element={<Quotestable />} />
+          <Route path="salarytable" element={<Salarytable />} />
+          <Route path="customertable" element={<Customertable />} />
+          <Route path="employeetable" element={<Employeetable />} />
+          <Route path="expencestable" element={<Expencestable />} />
+          <Route path="financialtable" element={<Financialtable />} />
 
 
 
