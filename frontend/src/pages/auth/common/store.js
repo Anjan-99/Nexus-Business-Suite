@@ -19,7 +19,7 @@ const initialUsers = () => {
 
 const initialIsAuth = () => {
   const item = window.localStorage.getItem("isAuth");
-  return item ? JSON.parse(item) : false;
+  return item ? JSON.parse(item) : true;
 };
 
 export const authSlice = createSlice({

@@ -18,7 +18,7 @@ const themeConfig = {
       isCollapsed: false,
       isHidden: false,
     },
-    mobileMenu: false,
+    mobileMenu: false,  
     customizer: false,
   },
 };
