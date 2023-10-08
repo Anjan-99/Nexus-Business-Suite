@@ -3,7 +3,7 @@ import Card from "@/components/ui/Card";
 import ExampleOne from "./react-tables/ExampleOne";
 import ExampleTwo from "./react-tables/ExampleTwo";
 
-const salarytable = () => {
+const salary_table = () => {
   return (
     <div className=" space-y-5">
       <ExampleTwo />
@@ -11,4 +11,4 @@ const salarytable = () => {
   );
 };
 
-export default salarytable;
+export default salary_table;

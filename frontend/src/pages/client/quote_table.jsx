@@ -3,12 +3,12 @@ import Card from "@/components/ui/Card";
 import ExampleOne from "./react-tables/ExampleOne";
 import ExampleTwo from "./react-tables/ExampleTwo";
 
-const fincrepotable = () => {
+const quotetable = () => {
   return (
-    <div className=" space-y-5">
-      <ExampleTwo />
+    <div className="space-y-5">
+      <ExampleOne />
     </div>
   );
 };
 
-export default fincrepotable;
+export default quotetable;
