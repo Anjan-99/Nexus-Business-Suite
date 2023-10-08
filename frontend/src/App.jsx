@@ -1,36 +1,27 @@
 import React, { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-//home pages  & dashboard
+// home pages  & dashboard
 //import Dashboard from "./pages/dashboard";
-<<<<<<< HEAD
 
 const Client = lazy(() => import("./pages/client"));
+//const Invoicetable = lazy(() => import("./pages/client/invoice_table"));
+const Customertable = lazy(() => import("./pages/client/customer_table"));
+const Salarytable = lazy(() => import("./pages/client/salary_table"));
 const Invoicetable = lazy(() => import("./pages/client/invoice_table"));
+const Emptable = lazy(() => import("./pages/client/emp_table"));
+const Expensestable = lazy(() => import("./pages/client/expenses_table"));
+const Financetable = lazy(() => import("./pages/client/finc_table"));
 const Quotetable = lazy(() => import("./pages/client/quote_table"));
-const Salarytable = lazy(() => "./pages/client/salary_table");
-const Customertable = lazy(() => "./pages/client/customer_table");
-const Demo = lazy(() => "./pages/dashboard/demo");
-// const Employeetable = lazy(() => "./pages/client/employee_table");
-// const Expencestable = lazy(() => "./pages/client/expences_table");
-// const Financialtable = lazy(() => "./pages/client/finc_repo_table");
 
 
 
 
 
-
-// const Dashboard = lazy(() => import("./pages/dashboard"));
-// const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
-// const CrmPage = lazy(() => import("./pages/dashboard/crm"));
-// const ProjectPage = lazy(() => import("./pages/dashboard/project"));
-// const BankingPage = lazy(() => import("./pages/dashboard/banking"));
-=======
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
 const CrmPage = lazy(() => import("./pages/dashboard/crm"));
 const ProjectPage = lazy(() => import("./pages/dashboard/project"));
 const BankingPage = lazy(() => import("./pages/dashboard/banking"));
->>>>>>> parent of a8c8b5a (Client Portal Generated)
 
 const Login = lazy(() => import("./pages/auth/login"));
 const Login2 = lazy(() => import("./pages/auth/login2"));
@@ -232,37 +223,33 @@ function App() {
           }
         />
         <Route path="/*" element={<Layout />}>
-<<<<<<< HEAD
           <Route path="client" element={<Client />} />
-          <Route path="invoicetable" element={<Invoicetable />} />
-          <Route path="quotestable" element={<Quotetable />} />
-          <Route path="salarytable" element={<Salarytable />} />
           <Route path="customertable" element={<Customertable />} />
-          <Route path="demo" element={<Demo />} />
-          {/* <Route path="employeetable" element={<Employeetable />} />
-          <Route path="expencestable" element={<Expencestable />} />
-          <Route path="financialtable" element={<Financialtable />} /> */}
+          <Route path="salarytable" element={<Salarytable />} />
+          <Route path="invoicetable" element={<Invoicetable />} />
+          <Route path="emptable" element={<Emptable />} />
+          <Route path="expensestable" element={<Expensestable />} />
+          <Route path="financetable" element={<Financetable />} />
+          <Route path="quotetable" element={<Quotetable />} />
 
 
 
 
-          {/* <Route path="dashboard" element={<Dashboard />} />
-=======
+
           <Route path="dashboard" element={<Dashboard />} />
->>>>>>> parent of a8c8b5a (Client Portal Generated)
           <Route path="ecommerce" element={<Ecommerce />} />
           <Route path="crm" element={<CrmPage />} />
           <Route path="project" element={<ProjectPage />} />
-          <Route path="banking" element={<BankingPage />} /> */}
+          <Route path="banking" element={<BankingPage />} />
           {/* App pages */}
-          {/* <Route path="todo" element={<TodoPage />} />
+          <Route path="todo" element={<TodoPage />} />
           <Route path="email" element={<EmailPage />} />
           <Route path="chat" element={<ChatPage />} />
           <Route path="projects" element={<ProjectPostPage />} />
           <Route path={"projects/:id"} element={<ProjectDetailsPage />} />
           <Route path="project-details" element={<ProjectDetailsPage />} />
           <Route path="kanban" element={<KanbanPage />} />
-          <Route path="calender" element={<CalenderPage />} /> */}
+          <Route path="calender" element={<CalenderPage />} />
           {/* Components pages */}
           <Route path="button" element={<Button />} />
           <Route path="dropdown" element={<Dropdown />} />

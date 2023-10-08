@@ -3,7 +3,7 @@ import Card from "@/components/ui/Card";
 import ExampleOne from "./react-tables/ExampleOne";
 import ExampleTwo from "./react-tables/ExampleTwo";
 
-const demo = () => {
+const invoicetable = () => {
   return (
     <div className=" space-y-5">
       <ExampleTwo />
@@ -11,4 +11,4 @@ const demo = () => {
   );
 };
 
-export default demo;
+export default invoicetable;
