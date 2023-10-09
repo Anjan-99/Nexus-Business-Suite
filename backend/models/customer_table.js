@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const invoicesSchema = new mongoose.Schema ({
-    invoiceid: {
+const customertableSchema = new mongoose.Schema ({
+    customerid: {
         type: String,
         required: true,
         primarykey: true,
@@ -21,22 +21,14 @@ const invoicesSchema = new mongoose.Schema ({
         required: true
     },
     phone: {
-        type: number,
+        type: Number,
         required: true,
     },
     address: {
         type: String,
         required: true
-    },
-    tokens: [
-        {
-            token: {
-                type: String,
-                required: true
-            }
-        }
-    ],
+    }
 })
 
-const Customers = mongoose.model("customers", customersSchema,"Customers");
-module.exports = Customers;
+const Customertable = mongoose.model("customer_table", customertableSchema,"Customertable");
+module.exports = Customertable;
