@@ -9,8 +9,19 @@ const Client = lazy(() => import("./pages/client"));
 const Invoicetable = lazy(() => import("./pages/client/invoice_table"));
 const Financetable = lazy(() => import("./pages/client/finc_table"));
 const Quotetable = lazy(() => import("./pages/client/quote_table"));
-
+const Paymenttable = lazy(() => import("./pages/client/payment_table"));
+const Vendertable = lazy(() => import("./pages/client/vender_table"));
+const Expresstable = lazy(() => import("./pages/client/express_table"));
+const Bills = lazy(() => import("./pages/client/bills_table"));
+const Vendercredittable = lazy(() => import("./pages/client/vendercredit_table"));
 const Customeradd = lazy(() => import("./pages/client/cust_add"));
+const Customertable = lazy(() => import("./pages/client/customer_table"));
+const Employeeaddtable = lazy(() => import("./pages/client/employee_add"));
+const Employeetable = lazy(() => import("./pages/client/employee_table"));
+const Salarytable = lazy(() => import("./pages/client/salary_table"));
+
+
+
 
 
 
@@ -225,8 +236,16 @@ function App() {
           <Route path="invoicetable" element={<Invoicetable />} />
           <Route path="financetable" element={<Financetable />} />
           <Route path="quotetable" element={<Quotetable />} />
-
+          <Route path="paymenttable" element={<Paymenttable />} />
+          <Route path="vendortable" element={<Vendertable />} />
+          <Route path="expresstable" element={<Expresstable />} />
+          <Route path="bills" element={<Bills />} />
+          <Route path="vendercredittable" element={<Vendercredittable />} />
           <Route path="customeradd" element={<Customeradd />} />
+          <Route path="customertable" element={<Customertable />} />
+          <Route path="employeeaddtable" element={<Employeeaddtable />} />
+          <Route path="employeetable" element={<Employeetable />} />
+          <Route path="salarytable" element={<Salarytable />} />
 
 
 

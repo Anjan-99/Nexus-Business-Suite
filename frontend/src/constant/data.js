@@ -23,11 +23,11 @@ export const menuItems = [
       },
       {
         childtitle: "Financial report table",
-        childlink: "payment_received",
+        childlink: "financetable",
       },
       {
         childtitle: "Payment received table",
-        childlink: "recurcing_invoices",
+        childlink: "paymenttable",
       },
     ],
   },
@@ -39,11 +39,11 @@ export const menuItems = [
     child: [
       {
         childtitle: "Vender table",
-        childlink: "vender",
+        childlink: "vendortable",
       },
       {
         childtitle: "Express",
-        childlink: "express",
+        childlink: "expresstable",
       },
       {
         childtitle: "Bills",
@@ -51,7 +51,7 @@ export const menuItems = [
       },
       {
         childtitle: "Vender creidts",
-        childlink: "purchase_order",
+        childlink: "vendercredittable",
       }
     ],
   },
@@ -63,11 +63,11 @@ export const menuItems = [
     child: [
       {
         childtitle: "Add customer",
-        childlink: "vender",
+        childlink: "customeradd",
       },
       {
         childtitle: "Customer table",
-        childlink: "express",
+        childlink: "customertable",
       },
     ],
   },
@@ -79,15 +79,15 @@ export const menuItems = [
     child: [
       {
         childtitle: "Add employee",
-        childlink: "vender",
+        childlink: "employeeaddtable",
       },
       {
         childtitle: "Employee table",
-        childlink: "express",
+        childlink: "employeetable",
       },
       {
         childtitle: "Salary table",
-        childlink: "express",
+        childlink: "salarytable",
       },
     ],
   },
