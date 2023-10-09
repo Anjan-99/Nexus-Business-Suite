@@ -14,28 +14,23 @@ export const menuItems = [
     isHide: true,
     child: [
       {
-        childtitle: "Customers",
-        childlink: "customers",
+        childtitle: "Invoice table",
+        childlink: "invoicetable",
       },
       {
-        childtitle: "Quates",
-        childlink: "quates",
+        childtitle: "Quates table",
+        childlink: "quotetable",
       },
       {
-        childtitle: "Invoices",
-        childlink: "invoices",
-      },
-      {
-        childtitle: "Payment Received",
+        childtitle: "Financial report table",
         childlink: "payment_received",
       },
       {
-        childtitle: "Recurcing Invoices",
+        childtitle: "Payment received table",
         childlink: "recurcing_invoices",
       },
     ],
   },
-
   {
     title: "Purchases",
     icon: "bx:purchase-tag",
@@ -43,7 +38,7 @@ export const menuItems = [
     isHide: true,
     child: [
       {
-        childtitle: "Vender",
+        childtitle: "Vender table",
         childlink: "vender",
       },
       {
@@ -54,9 +49,48 @@ export const menuItems = [
         childtitle: "Bills",
         childlink: "bills",
       },
+      {
+        childtitle: "Vender creidts",
+        childlink: "purchase_order",
+      }
     ],
   },
-
+  {
+    title: "Customer",
+    icon: "raphael:customer",
+    link: "#",
+    isHide: true,
+    child: [
+      {
+        childtitle: "Add customer",
+        childlink: "vender",
+      },
+      {
+        childtitle: "Customer table",
+        childlink: "express",
+      },
+    ],
+  },
+  {
+    title: "Employee",
+    icon: "clarity:employee-line",
+    link: "#",
+    isHide: true,
+    child: [
+      {
+        childtitle: "Add employee",
+        childlink: "vender",
+      },
+      {
+        childtitle: "Employee table",
+        childlink: "express",
+      },
+      {
+        childtitle: "Salary table",
+        childlink: "express",
+      },
+    ],
+  },
   {
     title: "documents",
     isHide: true,
@@ -64,12 +98,6 @@ export const menuItems = [
     link: "email",
   },
 
-  {
-    title: "Chat",
-    isHide: true,
-    icon: "heroicons-outline:chat",
-    link: "chat",
-  },
 ];
 
 export const topMenu = [
