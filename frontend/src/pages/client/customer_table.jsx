@@ -1,11 +1,12 @@
 import React from "react";
 import Card from "@/components/ui/Card";
-import CustomerTable from "./react-tables/CustomerTable";
+import ExampleOne from "./react-tables/ExampleOne";
+import FetchUserData from "./react-tables/demotable";
 
 const customertable = () => {
   return (
     <div className=" space-y-5">
-      <CustomerTable />
+      <FetchUserData />
     </div>
   );
 };
