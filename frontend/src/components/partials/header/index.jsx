@@ -125,7 +125,7 @@ const Header = ({ className = "custom-class" }) => {
           <div className="nav-tools flex items-center lg:space-x-6 space-x-3 rtl:space-x-reverse">
             <SwitchDark />
             <button onClick={navigateTologin}
-          className="btn btn-danger btn-sm text-center"
+          className="btn btn-danger text-center"
         >
           Logout
         </button>
