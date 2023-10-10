@@ -188,7 +188,7 @@ const VendorTable = ({ title = "Vendor Table" }) => {
   } = tableInstance;
   const navigate2 = useNavigate();
   const navigateto = () => {
-    navigate2("/vendortable");
+    navigate2("/vendoradd");
   };
   const { globalFilter, pageIndex, pageSize } = state;
   return (

@@ -62,7 +62,7 @@ const quotesadd = () => {
 
   return (
     <div>
-      <Card title="Add Invoice"> 
+      <Card title="Add Quote"> 
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">

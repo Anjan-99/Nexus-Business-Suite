@@ -37,12 +37,12 @@ const customeradd = () => {
   const custadd = async (e) => {
     e.preventDefault();
     
-    const { firstname, lastname,comapanyname, businessType, email, phone, address} = cust; //form inputs
+    const { firstname, lastname,companyname, businessType, email, phone, address} = cust; //form inputs
     try {
       const res = await axios.post("http://localhost:5000/customer_add", {
         firstname,
         lastname,
-        comapanyname,
+        companyname,
         businessType,
         email,
         phone,
@@ -73,7 +73,7 @@ const customeradd = () => {
                 label="First Name"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: John, Smith, etc."
               />
               <Textinput
@@ -81,15 +81,15 @@ const customeradd = () => {
                 label="Last Name"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: Patel, Shah, etc."
               />
               <Textinput
-                name = "comapanyname"
+                name = "companyname"
                 label="Company Name"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: ABC Pvt Ltd"
               />
               <Textinput
@@ -97,7 +97,7 @@ const customeradd = () => {
                 label="Business Type"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: Retailer, Wholesaler, etc."
               />
 
@@ -108,7 +108,7 @@ const customeradd = () => {
                 onChange={submit}
                 id="date"
                 placeholder="xyz@gmail.com"
-                isMask
+                
               />
               <InputGroup
                 name = "phone"
