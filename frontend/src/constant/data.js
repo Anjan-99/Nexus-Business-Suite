@@ -4,7 +4,7 @@ export const menuItems = [
     icon: "heroicons-outline:home",
     isOpen: true,
     isHide: true,
-    link: "dashboard",
+    link: "client",
   },
 
   {

@@ -1,5 +1,6 @@
 // Fetch user data from MongoDB using the provided API
 import React, { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { advancedTable } from "../../../constant/table-data";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
@@ -15,6 +16,8 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
 const InvoiceTable = ({ title = "Invoice Table" }) => {
+  const { navigate } = useNavigate();
+  const id = 0;
   const COLUMNS = [
     {
       Header: "Id",
@@ -91,8 +94,25 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
     },
     {
       Header: "Action",
-      accessor: "action",
+      accessor: "id",
       Cell: (row) => {
+        const deleterow = async (e) => {
+          e.preventDefault();
+          
+          try {
+            const id = row?.cell?.value;
+            const res = axios.delete(
+              `http://localhost:5000/invoice_delete/${id}`,
+              {
+                id,
+              },
+              { withCredentials: false }
+            );
+          } catch (error) {
+            console.log(error);
+          }
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -122,7 +142,7 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
               animation="shift-away"
               theme="danger"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={deleterow} type="button">
                 <Icon icon="heroicons:trash" />
               </button>
             </Tooltip>

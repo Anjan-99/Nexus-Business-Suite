@@ -17,7 +17,7 @@ const HomeBredCurbs = ({ title }) => {
         {title}
       </h4>
       <div className="flex sm:space-x-4 space-x-2 sm:justify-end items-center rtl:space-x-reverse">
-        <div className="date-range-custom relative">
+        {/* <div className="date-range-custom relative">
           <Datepicker
             value={value}
             inputClassName="input-class"
@@ -33,7 +33,7 @@ const HomeBredCurbs = ({ title }) => {
             containerClassName="container-class"
             onChange={handleValueChange}
           />
-        </div>
+        </div> */}
       </div>
     </div>
   );
