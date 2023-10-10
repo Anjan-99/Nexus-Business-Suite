@@ -18,7 +18,7 @@ router.post("/invoice_add", async (req, res) => {
     const invoice_id = Math.floor(Math.random() * 10000) + 1;
     const status = "paid";
     try { 
-        const invoice_table = new Invoice_table({ id,invoice_id, customer_id, customer_name, invoice_number, issue_date, due_date, total_amount, status});
+        const invoice_table = new Invoice_table({invoice_id, customer_id, customer_name, invoice_number, issue_date, due_date, total_amount, status});
         const invoice_tabledetails =  await invoice_table.save();
         if (invoice_tabledetails){
             res.status(201).json({ message: "successfully" });

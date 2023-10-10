@@ -37,12 +37,12 @@ const customeradd = () => {
   const custadd = async (e) => {
     e.preventDefault();
     
-    const { firstname, lastname,comapanyname, businessType, email, phone, address} = cust; //form inputs
+    const { firstname, lastname,companyname, businessType, email, phone, address} = cust; //form inputs
     try {
       const res = await axios.post("http://localhost:5000/customer_add", {
         firstname,
         lastname,
-        comapanyname,
+        companyname,
         businessType,
         email,
         phone,
@@ -52,7 +52,7 @@ const customeradd = () => {
       if (res) {
         alert(res.data.message);
         setTimeout(() => {
-          navigate("/customer_table"); //redirect to table
+          navigate("/customertable"); //redirect to table
         }, 1500);
       } else {
         alert(res.data.error);
@@ -85,7 +85,7 @@ const customeradd = () => {
                 placeholder="Ex: Patel, Shah, etc."
               />
               <Textinput
-                name = "comapanyname"
+                name = "companyname"
                 label="Company Name"
                 register={register}
                 onChange={submit}

@@ -47,8 +47,8 @@ const FetchUserData = ({ title = "All Customers" }) => {
       },
     },
     {
-      Header: "comapanyname",
-      accessor: "comapanyname",
+      Header: "companyname",
+      accessor: "companyname",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
