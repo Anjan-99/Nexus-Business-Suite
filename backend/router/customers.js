@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 router.post("/customer_add", async (req, res) => {
-    const { firstname, lastname, companyname, businessType, email, phone, address } = req.body;
+    const { firstname, lastname,companyname, businessType, email, phone, address } = req.body;
     customerid = Math.floor(Math.random() * 1000);
     try { 
         const customer_table = new Customertable({ customerid, firstname, lastname, email, phone, address ,companyname, businessType });

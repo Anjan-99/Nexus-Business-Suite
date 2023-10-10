@@ -212,7 +212,7 @@ const VendorCredit = ({ title = "Vendor Credits Table" }) => {
   } = tableInstance;
   const navigate2 = useNavigate();
   const navigateto = () => {
-    navigate2("/billadd");
+    navigate2("/vendorcreditadd");
   };
   const { globalFilter, pageIndex, pageSize } = state;
   return (
@@ -224,7 +224,7 @@ const VendorCredit = ({ title = "Vendor Credits Table" }) => {
               className="btn btn-primary text-center"
               onClick={navigateto}
             >
-              Add Bills
+              Add Vendor Credit
             </button>
         </div>
         <div className="overflow-x-auto -mx-6">

@@ -73,7 +73,7 @@ const customeradd = () => {
                 label="First Name"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: John, Smith, etc."
               />
               <Textinput
@@ -81,7 +81,7 @@ const customeradd = () => {
                 label="Last Name"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: Patel, Shah, etc."
               />
               <Textinput
@@ -89,7 +89,7 @@ const customeradd = () => {
                 label="Company Name"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: ABC Pvt Ltd"
               />
               <Textinput
@@ -97,7 +97,7 @@ const customeradd = () => {
                 label="Business Type"
                 register={register}
                 onChange={submit}
-                isMask
+                
                 placeholder="Ex: Retailer, Wholesaler, etc."
               />
 
@@ -108,7 +108,7 @@ const customeradd = () => {
                 onChange={submit}
                 id="date"
                 placeholder="xyz@gmail.com"
-                isMask
+                
               />
               <InputGroup
                 name = "phone"
