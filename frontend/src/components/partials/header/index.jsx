@@ -7,9 +7,13 @@ import useSidebar from "@/hooks/useSidebar";
 import useNavbarType from "@/hooks/useNavbarType";
 import useMenulayout from "@/hooks/useMenulayout";
 import useSkin from "@/hooks/useSkin";
+import { handleLogout } from "@/pages/auth/common/store";
+import { useDispatch, useSelector } from "react-redux";
 import Logo from "./Tools/Logo";
 import SearchModal from "./Tools/SearchModal";
 import Profile from "./Tools/Profile";
+import { useNavigate } from "react-router-dom";
+
 import Notification from "./Tools/Notification";
 import Message from "./Tools/Message";
 import Language from "./Tools/Language";
@@ -40,7 +44,10 @@ const Header = ({ className = "custom-class" }) => {
   const [isRtl] = useRtl();
 
   const [mobileMenu, setMobileMenu] = useMobileMenu();
-
+  const navigate = useNavigate();
+  const navigateTologin = () => {
+    navigate("/");
+  };
   const handleOpenMobileMenu = () => {
     setMobileMenu(!mobileMenu);
   };
@@ -117,7 +124,12 @@ const Header = ({ className = "custom-class" }) => {
           {/* Nav Tools  */}
           <div className="nav-tools flex items-center lg:space-x-6 space-x-3 rtl:space-x-reverse">
             <SwitchDark />
-            {width >= breakpoints.md && <Profile />}
+            <button onClick={navigateTologin}
+          className="btn btn-danger btn-sm text-center"
+        >
+          Logout
+        </button>
+            
             
           </div>
         </div>

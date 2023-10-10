@@ -34,6 +34,7 @@ const HomeBredCurbs = ({ title }) => {
             onChange={handleValueChange}
           />
         </div> */}
+        
       </div>
     </div>
   );

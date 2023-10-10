@@ -10,7 +10,7 @@ import RecentActivity from "@/components/partials/widget/recent-activity";
 import MostSales from "../../components/partials/widget/most-sales";
 import RadarChart from "../../components/partials/widget/chart/radar-chart";
 import HomeBredCurbs from "./HomeBredCurbs";
-import ProfileImage from "@/assets/images/users/anjan.jpg";
+import ProfileImage from "@/assets/images/users/user.webp";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/Icon";
 import axios from "axios";
