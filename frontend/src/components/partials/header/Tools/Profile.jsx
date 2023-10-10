@@ -5,10 +5,39 @@ import { Menu, Transition } from "@headlessui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { handleLogout } from "@/pages/auth/common/store";
+import axios from "axios";
+import {useState, useEffect } from "react";
+
 
 import UserAvatar from "@/assets/images/all-img/user.png";
 
 const profileLabel = () => {
+  const [filterMap, setFilterMap] = useState("usa");
+  //make use state for user
+  const [user , setUser] = useState({name:''})
+  const auth = async () => {
+    try{
+      const res = await axios.get('http://localhost:5000/verify', {
+        method: "GET",
+        withCredentials: true,
+        header : {
+          "Content-Type" : "application/json",
+          "accept" : "application/json"
+        },
+      });
+      //store res in user usestate 
+      const user = res.data;
+      setUser(user);
+      
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    auth();
+  }, []);
   return (
     <div className="flex items-center">
       <div className="flex-1 ltr:mr-[10px] rtl:ml-[10px]">
@@ -22,7 +51,7 @@ const profileLabel = () => {
       </div>
       <div className="flex-none text-slate-600 dark:text-white text-sm font-normal items-center lg:flex hidden overflow-hidden text-ellipsis whitespace-nowrap">
         <span className="overflow-hidden text-ellipsis whitespace-nowrap w-[85px] block">
-          Albert Flores
+          {user.name}
         </span>
         <span className="text-base inline-block ltr:ml-[10px] rtl:mr-[10px]">
           <Icon icon="heroicons-outline:chevron-down"></Icon>
@@ -43,36 +72,6 @@ const Profile = () => {
 
       action: () => {
         navigate("/profile");
-      },
-    },
-   
-    
-    {
-      label: "Todo",
-      icon: "heroicons-outline:clipboard-check",
-      action: () => {
-        navigate("/todo");
-      },
-    },
-    {
-      label: "Settings",
-      icon: "heroicons-outline:cog",
-      action: () => {
-        navigate("/settings");
-      },
-    },
-    {
-      label: "Price",
-      icon: "heroicons-outline:credit-card",
-      action: () => {
-        navigate("/pricing");
-      },
-    },
-    {
-      label: "Faq",
-      icon: "heroicons-outline:information-circle",
-      action: () => {
-        navigate("/faq");
       },
     },
     {

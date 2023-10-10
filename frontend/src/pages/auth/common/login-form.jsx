@@ -35,7 +35,7 @@ const LoginForm = () => {
     e.preventDefault();
     
     const { email, password } = user;
-    console.log(email, password);
+    //console.log(email, password);
     try {
       const res = await axios.post("http://localhost:5000/login", {
         email,
@@ -63,7 +63,7 @@ const LoginForm = () => {
         type="email"
         register={register}
         error={errors.email}
-        onChange={submit}
+        cust
         className="h-[48px]"
       />
       <Textinput

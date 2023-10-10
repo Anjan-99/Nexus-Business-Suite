@@ -21,10 +21,18 @@ const customertableSchema = new mongoose.Schema ({
         required: true
     },
     phone: {
-        type: Number,
+        type: String,
         required: true,
     },
     address: {
+        type: String,
+        required: true
+    },
+    comapanyname: {
+        type: String,
+        required: true
+    },
+    businessType: {
         type: String,
         required: true
     }
