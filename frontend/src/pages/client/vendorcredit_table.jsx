@@ -2,7 +2,7 @@ import React from "react";
 import Card from "@/components/ui/Card";
 import VendorCredit from "./react-tables/VendorCredit";
 
-const vendorcreditstable = () => {
+const vendorcredittable = () => {
   return (
     <div className=" space-y-5">
       <VendorCredit />
@@ -10,4 +10,4 @@ const vendorcreditstable = () => {
   );
 };
 
-export default vendorcreditstable;
+export default vendorcredittable;

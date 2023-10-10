@@ -51,7 +51,7 @@ export const menuItems = [
       },
       {
         childtitle: "Vender creidts",
-        childlink: "vendercredittable",
+        childlink: "vendorcredit_table",
       }
     ],
   },

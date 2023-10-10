@@ -240,7 +240,7 @@ function App() {
           <Route path="vendortable" element={<Vendortable />} />
           <Route path="expresstable" element={<Expresstable />} />
           <Route path="bills" element={<Bills />} />
-          <Route path="vendorcredittable" element={<Vendorcredittable />} />
+          <Route path="vendorcredit_table" element={<Vendorcredittable />} />
           <Route path="customeradd" element={<Customeradd />} />
           <Route path="customertable" element={<Customertable />} />
           <Route path="employeeaddtable" element={<Employeeaddtable />} />
