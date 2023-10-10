@@ -95,7 +95,7 @@ export const menuItems = [
     title: "documents",
     isHide: true,
     icon: "ion:documents-outline",
-    link: "email",
+    // link: "email",
   },
 
 ];
