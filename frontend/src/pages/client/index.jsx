@@ -111,7 +111,7 @@ const Client = () => {
         </div>
       </div>
       <br />
-      <div className="grid grid-cols-9 gap-5 mb-5">
+      <div className="grid grid-cols-7 gap-5 mb-5">
         <div className="2xl:col-span-9 lg:col-span-8 col-span-12">
           <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
             <GroupChart2 />
