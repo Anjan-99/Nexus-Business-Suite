@@ -28,7 +28,7 @@ const customertableSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
-    comapanyname: {
+    companyname: {
         type: String,
         required: true
     },

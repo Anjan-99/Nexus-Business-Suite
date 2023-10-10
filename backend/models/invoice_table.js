@@ -3,10 +3,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 const invoicetableSchema = new mongoose.Schema ({
-    id: {
-        type: String,
-        required: true,
-    },
     invoice_id: {
         type: String,
         required: true,
