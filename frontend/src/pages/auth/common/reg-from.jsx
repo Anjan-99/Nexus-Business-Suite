@@ -47,7 +47,7 @@ function RegForm () {
         alert(res.data.error)
       }else{
         alert(res.data.message)
-        navigate("/login");
+        navigate("/");
       }
     } catch (error) {
       console.log(error)
