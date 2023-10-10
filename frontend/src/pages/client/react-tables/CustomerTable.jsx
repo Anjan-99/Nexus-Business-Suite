@@ -19,14 +19,14 @@ const FetchUserData = ({ title = "All Customers" }) => {
   const COLUMNS = [
     {
       Header: "Id",
-      accessor: "_id",
+      accessor: "customerid",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
     },
     {
       Header: "Name",
-      accessor: "name",
+      accessor: "firstname",
       Cell: (row) => {
         return (
           <div>
@@ -40,15 +40,22 @@ const FetchUserData = ({ title = "All Customers" }) => {
       },
     },
     {
-      Header: "quantity",
-      accessor: "email",
+      Header: "phone",
+      accessor: "phone",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
     },
     {
-      Header: "amount",
-      accessor: "password",
+      Header: "comapanyname",
+      accessor: "comapanyname",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "businessType",
+      accessor: "businessType",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
@@ -156,7 +163,7 @@ const FetchUserData = ({ title = "All Customers" }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/fetchuser");
+        const response = await axios.get("http://localhost:5000/fetchcustomer");
         console.log(response.data);
         setData(response.data);
       } catch (error) {

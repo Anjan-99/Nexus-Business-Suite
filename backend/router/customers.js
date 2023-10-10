@@ -7,8 +7,7 @@ const jwt = require("jsonwebtoken");
 
 router.post("/customer_add", async (req, res) => {
     const { firstname, lastname,comapanyname, businessType, email, phone, address } = req.body;
-    random = Math.floor(Math.random() * 1000000000);
-    const customerid = firstname + lastname + businessType + random ;
+    customerid = Math.floor(Math.random() * 1000);
     try { 
         const customer_table = new Customertable({ customerid, firstname, lastname, email, phone, address ,comapanyname, businessType });
         const customer_tabledetails =  await customer_table.save();

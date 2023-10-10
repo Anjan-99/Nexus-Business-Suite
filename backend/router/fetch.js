@@ -8,6 +8,7 @@ const Payment_table = require("../models/payment_table.js");
 const Vendor_table = require("../models/vendor_table.js");
 const Expenses_table = require("../models/expenses_table.js");
 const Bills_table = require("../models/bills_table.js");
+const Customertable = require("../models/customer_table.js");
 const vendorcredit_table = require("../models/vendorcredit_table.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
@@ -100,5 +101,15 @@ router.get("/fetchvendorcredit", async (req, res) => {
     }
 });
 
+//customer fetch
+router.get("/fetchcustomer", async (req, res) => {
+    try {
+        const userFetch = await Customertable.find();
+        res.json(userFetch);
+        
+    } catch (err){
+        console.log(err);
+    }
+});
 
 module.exports = router;
