@@ -27,7 +27,11 @@ const vendorcredittableSchema = new mongoose.Schema ({
         type: Number,
         required: true
     },
+    status: {
+        type: String,
+        required: true
+    }
 })
 
-const Bills_table = mongoose.model("bills_table", billstableSchema,"Bills_table");
-module.exports = Bills_table;
+const vendorcredit_table = mongoose.model("Vendor_credit_table", vendorcredittableSchema,"Vendor_credit_table");
+module.exports = vendorcredit_table;

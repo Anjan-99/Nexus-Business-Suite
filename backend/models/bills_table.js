@@ -27,6 +27,10 @@ const billstableSchema = new mongoose.Schema ({
         type: Number,
         required: true
     },
+    status: {
+        type: String,
+        required: true,
+    }
 })
 
 const Bills_table = mongoose.model("bills_table", billstableSchema,"Bills_table");

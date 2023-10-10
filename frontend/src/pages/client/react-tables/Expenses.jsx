@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from "react";
+// Fetch user data from MongoDB using the provided API
+import React, { useState, useEffect, useMemo } from "react";
 import { advancedTable } from "../../../constant/table-data";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
@@ -11,153 +12,175 @@ import {
   usePagination,
 } from "react-table";
 import GlobalFilter from "./GlobalFilter";
+import axios from "axios";
 
-const COLUMNS = [
-  {
-    Header: "Id",
-    accessor: "id",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+const Expenses = ({ title = "Expenses Table" }) => {
+  const COLUMNS = [
+    {
+      Header: "Id",
+      accessor: "id",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Date",
-    accessor: "date",
-    Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>; //rows data
+    {
+      Header: "Date",
+      accessor: "date",
+      Cell: (row) => {
+        return <span>#{row?.cell?.value}</span>; //rows data
+      },
     },
-  },
-  {
-    Header: "Expenses",
-    accessor: "expenses",
-    Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>;
+    {
+      Header: "Expenses",
+      accessor: "expenses",
+      Cell: (row) => {
+        return <span>#{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Vendor Name",
-    accessor: "vendor_name",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "Vendor Name",
+      accessor: "vendor_name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Mode of Payment",
-    accessor: "mode_of_payment",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "Mode of Payment",
+      accessor: "mode_of_payment",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Customer Name",
-    accessor: "customer_name",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "Customer Name",
+      accessor: "customer_name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Status",
-    accessor: "status",
-    Cell: (row) => {
-      return (
-        <span className="block w-full">
-          <span
-            className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
-              row?.cell?.value === "paid"
-                ? "text-success-500 bg-success-500"
-                : ""
-            } 
-            ${
-              row?.cell?.value === "due"
-                ? "text-warning-500 bg-warning-500"
-                : ""
-            }
-            ${
-              row?.cell?.value === "cancled"
-                ? "text-danger-500 bg-danger-500"
-                : ""
-            }
-            
-             `}
-          >
-            {row?.cell?.value}
+    {
+      Header: "Status",
+      accessor: "status",
+      Cell: (row) => {
+        return (
+          <span className="block w-full">
+            <span
+              className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
+                row?.cell?.value === "paid"
+                  ? "text-success-500 bg-success-500"
+                  : ""
+              } 
+              ${
+                row?.cell?.value === "due"
+                  ? "text-warning-500 bg-warning-500"
+                  : ""
+              }
+              ${
+                row?.cell?.value === "cancled"
+                  ? "text-danger-500 bg-danger-500"
+                  : ""
+              }
+              
+               `}
+            >
+              {row?.cell?.value}
+            </span>
           </span>
-        </span>
-      );
+        );
+      },
     },
-  },
-  {
-    Header: "Amount",
-    accessor: "amount",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "Amount",
+      accessor: "amount",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-    Cell: (row) => {
+    {
+      Header: "Action",
+      accessor: "action",
+      Cell: (row) => {
+        return (
+          <div className="flex space-x-3 rtl:space-x-reverse">
+            <Tooltip content="View" placement="top" arrow animation="shift-away">
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:eye" />
+              </button>
+            </Tooltip>
+            <Tooltip content="Edit" placement="top" arrow animation="shift-away">
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:pencil-square" />
+              </button>
+            </Tooltip>
+            <Tooltip
+              content="Delete"
+              placement="top"
+              arrow
+              animation="shift-away"
+              theme="danger"
+            >
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:trash" />
+              </button>
+            </Tooltip>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef();
+      const resolvedRef = ref || defaultRef;
+
+      React.useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate;
+      }, [resolvedRef, indeterminate]);
+
       return (
-        <div className="flex space-x-3 rtl:space-x-reverse">
-          <Tooltip content="View" placement="top" arrow animation="shift-away">
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:eye" />
-            </button>
-          </Tooltip>
-          <Tooltip content="Edit" placement="top" arrow animation="shift-away">
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:pencil-square" />
-            </button>
-          </Tooltip>
-          <Tooltip
-            content="Delete"
-            placement="top"
-            arrow
-            animation="shift-away"
-            theme="danger"
-          >
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:trash" />
-            </button>
-          </Tooltip>
-        </div>
+        <>
+          <input
+            type="checkbox"
+            ref={resolvedRef}
+            {...rest}
+            className="table-checkbox"
+          />
+        </>
       );
-    },
-  },
-];
+    }
+  );
+  // Initialize state variables
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
+  // Fetch user data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/fetchexpenses");
+        console.log(response.data);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
+    fetchData();
+  }, []);
 
-    return (
-      <>
-        <input
-          type="checkbox"
-          ref={resolvedRef}
-          {...rest}
-          className="table-checkbox"
-        />
-      </>
-    );
-  }
-);
-
-const Express = ({ title = "Express" }) => {
+  // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => advancedTable, []);
-
+  const tableData = useMemo(() => data, [data]);
+  // ... (Rest of the code remains unchanged)
+  console.log(tableData);
   const tableInstance = useTable(
     {
       columns,
-      data,
+      data: tableData,
     },
-
     useGlobalFilter,
     useSortBy,
     usePagination,
@@ -354,4 +377,4 @@ const Express = ({ title = "Express" }) => {
   );
 };
 
-export default Express;
+export default Expenses;

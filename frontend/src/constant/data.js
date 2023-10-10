@@ -21,10 +21,10 @@ export const menuItems = [
         childtitle: "Quotes table",
         childlink: "quotetable",
       },
-      {
-        childtitle: "Financial report table",
-        childlink: "financetable",
-      },
+      // {
+      //   childtitle: "Financial report table",
+      //   childlink: "financetable",
+      // },
       {
         childtitle: "Payment received table",
         childlink: "paymenttable",
@@ -42,7 +42,7 @@ export const menuItems = [
         childlink: "vendortable",
       },
       {
-        childtitle: "Express",
+        childtitle: "Expenses",
         childlink: "expresstable",
       },
       {

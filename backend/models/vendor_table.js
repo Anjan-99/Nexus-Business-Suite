@@ -20,7 +20,7 @@ const vendortableSchema = new mongoose.Schema ({
         required: true,
     },
     payable_amount: {
-        type: String,
+        type: Number,
         required: true
     },
     unused_credit: {

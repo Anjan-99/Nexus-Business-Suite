@@ -20,13 +20,18 @@ const quotestableSchema = new mongoose.Schema ({
         required: true
     },
     valid_until: {
-        type: Number,
+        type: String,
         required: true,
     },
     total_amount: {
         type: String,
         required: true
-    }
+    },
+    status: {
+        type: String,
+        required: true,
+    },
+    
 })
 
 const Quotes_table = mongoose.model("quotes_table", quotestableSchema,"Quotes_table");

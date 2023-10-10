@@ -1,5 +1,5 @@
 // Fetch user data from MongoDB using the provided API
-import React, { useState,useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { advancedTable } from "../../../constant/table-data";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
@@ -14,77 +14,76 @@ import {
 import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
-const FetchUserData = ({ title = "Advanced Table Two" }) => {
+const VendorCredit = ({ title = "Vendor Credits Table" }) => {
   const COLUMNS = [
     {
       Header: "Id",
-      accessor: "_id",
+      accessor: "id",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
     },
     {
-      Header: "Name",
+      Header: "name",
       accessor: "name",
       Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "company name",
+      accessor: "company_name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "payment amount",
+      accessor: "payment_amount",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "unused credit",
+      accessor: "unused_credit",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Status",
+      accessor: "status",
+      Cell: (row) => {
         return (
-          <div>
-            <span className="inline-flex items-center">
-              <span className="text-sm text-slate-600 dark:text-slate-300 capitalize">
-                {row?.cell?.value}
-              </span>
+          <span className="block w-full">
+            <span
+              className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
+                row?.cell?.value === "paid"
+                  ? "text-success-500 bg-success-500"
+                  : ""
+              } 
+              ${
+                row?.cell?.value === "due"
+                  ? "text-warning-500 bg-warning-500"
+                  : ""
+              }
+              ${
+                row?.cell?.value === "cancled"
+                  ? "text-danger-500 bg-danger-500"
+                  : ""
+              }
+              
+               `}
+            >
+              {row?.cell?.value}
             </span>
-          </div>
+          </span>
         );
       },
     },
     {
-      Header: "quantity",
-      accessor: "email",
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>;
-      },
-    },
-    {
-      Header: "amount",
-      accessor: "password",
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>;
-      },
-    },
-    // {
-    //   Header: "status",
-    //   accessor: "status",
-    //   Cell: (row) => {
-    //     return (
-    //       <span className="block w-full">
-    //         <span
-    //           className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
-    //             row?.cell?.value === "paid"
-    //               ? "text-success-500 bg-success-500"
-    //               : ""
-    //           } 
-    //           ${
-    //             row?.cell?.value === "due"
-    //               ? "text-warning-500 bg-warning-500"
-    //               : ""
-    //           }
-    //           ${
-    //             row?.cell?.value === "cancled"
-    //               ? "text-danger-500 bg-danger-500"
-    //               : ""
-    //           }
-              
-    //            `}
-    //         >
-    //           {row?.cell?.value}
-    //         </span>
-    //       </span>
-    //     );
-    //   },
-    // },
-    {
-      Header: "action",
+      Header: "Action",
       accessor: "action",
       Cell: (row) => {
         return (
@@ -120,11 +119,11 @@ const FetchUserData = ({ title = "Advanced Table Two" }) => {
     ({ indeterminate, ...rest }, ref) => {
       const defaultRef = React.useRef();
       const resolvedRef = ref || defaultRef;
-  
+
       React.useEffect(() => {
         resolvedRef.current.indeterminate = indeterminate;
       }, [resolvedRef, indeterminate]);
-  
+
       return (
         <>
           <input
@@ -145,7 +144,7 @@ const FetchUserData = ({ title = "Advanced Table Two" }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/fetchuser");
+        const response = await axios.get("http://localhost:5000/fetchvendorcredit");
         console.log(response.data);
         setData(response.data);
       } catch (error) {
@@ -158,8 +157,6 @@ const FetchUserData = ({ title = "Advanced Table Two" }) => {
     fetchData();
   }, []);
 
-
-
   // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
   const tableData = useMemo(() => data, [data]);
@@ -170,7 +167,6 @@ const FetchUserData = ({ title = "Advanced Table Two" }) => {
       columns,
       data: tableData,
     },
-
     useGlobalFilter,
     useSortBy,
     usePagination,
@@ -367,4 +363,4 @@ const FetchUserData = ({ title = "Advanced Table Two" }) => {
   );
 };
 
-export default FetchUserData;
+export default VendorCredit;

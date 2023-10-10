@@ -1,4 +1,5 @@
-import React, { useState, useMemo } from "react";
+// Fetch user data from MongoDB using the provided API
+import React, { useState, useEffect, useMemo } from "react";
 import { advancedTable } from "../../../constant/table-data";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
@@ -11,115 +12,137 @@ import {
   usePagination,
 } from "react-table";
 import GlobalFilter from "./GlobalFilter";
-
-const COLUMNS = [
-  {
-    Header: "Id",
-    accessor: "id",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
-    },
-  },
-  {
-    Header: "Name",
-    accessor: "name",
-    Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>;
-    },
-  },
-  {
-    Header: "Company name",
-    accessor: "company_name",
-    Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>;
-    },
-  },
-  {
-    Header: "Email",
-    accessor: "email",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
-    },
-  },
-  {
-    Header: "Payable amount",
-    accessor: "payable_amount",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
-    },
-  },
-  {
-    Header: "Unused credit",
-    accessor: "unused_credit",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
-    },
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-    Cell: (row) => {
-      return (
-        <div className="flex space-x-3 rtl:space-x-reverse">
-          <Tooltip content="View" placement="top" arrow animation="shift-away">
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:eye" />
-            </button>
-          </Tooltip>
-          <Tooltip content="Edit" placement="top" arrow animation="shift-away">
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:pencil-square" />
-            </button>
-          </Tooltip>
-          <Tooltip
-            content="Delete"
-            placement="top"
-            arrow
-            animation="shift-away"
-            theme="danger"
-          >
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:trash" />
-            </button>
-          </Tooltip>
-        </div>
-      );
-    },
-  },
-];
-
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
-
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
-
-    return (
-      <>
-        <input
-          type="checkbox"
-          ref={resolvedRef}
-          {...rest}
-          className="table-checkbox"
-        />
-      </>
-    );
-  }
-);
+import axios from "axios";
 
 const VendorTable = ({ title = "Vendor Table" }) => {
-  const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => advancedTable, []);
+  const COLUMNS = [
+    {
+      Header: "Id",
+      accessor: "id",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Name",
+      accessor: "name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Company name",
+      accessor: "company_name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Email",
+      accessor: "email",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Payable amount",
+      accessor: "payable_amount",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Unused credit",
+      accessor: "unused_credit",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Action",
+      accessor: "action",
+      Cell: (row) => {
+        return (
+          <div className="flex space-x-3 rtl:space-x-reverse">
+            <Tooltip content="View" placement="top" arrow animation="shift-away">
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:eye" />
+              </button>
+            </Tooltip>
+            <Tooltip content="Edit" placement="top" arrow animation="shift-away">
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:pencil-square" />
+              </button>
+            </Tooltip>
+            <Tooltip
+              content="Delete"
+              placement="top"
+              arrow
+              animation="shift-away"
+              theme="danger"
+            >
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:trash" />
+              </button>
+            </Tooltip>
+          </div>
+        );
+      },
+    },
+  ];
 
+  const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef();
+      const resolvedRef = ref || defaultRef;
+
+      React.useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate;
+      }, [resolvedRef, indeterminate]);
+
+      return (
+        <>
+          <input
+            type="checkbox"
+            ref={resolvedRef}
+            {...rest}
+            className="table-checkbox"
+          />
+        </>
+      );
+    }
+  );
+  // Initialize state variables
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch user data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/fetchvendor");
+        console.log(response.data);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Memoized columns and data
+  const columns = useMemo(() => COLUMNS, []);
+  const tableData = useMemo(() => data, [data]);
+  // ... (Rest of the code remains unchanged)
+  console.log(tableData);
   const tableInstance = useTable(
     {
       columns,
-      data,
+      data: tableData,
     },
-
     useGlobalFilter,
     useSortBy,
     usePagination,

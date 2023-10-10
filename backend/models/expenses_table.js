@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const expresstableSchema = new mongoose.Schema ({
+const expensestableSchema = new mongoose.Schema ({
     id: {
         type: String,
         required: true,
@@ -24,14 +24,18 @@ const expresstableSchema = new mongoose.Schema ({
         required: true
     },
     customer_name: {
-        type: Number,
+        type: String,
         required: true
     },
     amount: {
         type: Number,
         required: true,
-    }
+    },
+    status: {
+        type: String,
+        required: true,
+    },
 })
 
-const Express_table = mongoose.model("express_table", expresstableSchema,"Express_table");
-module.exports = Express_table;
+const Expenses_table = mongoose.model("express_table", expensestableSchema,"Expenses_table");
+module.exports = Expenses_table;

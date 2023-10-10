@@ -11,6 +11,10 @@ const invoicetableSchema = new mongoose.Schema ({
         type: String,
         required: true,
     },
+    customer_name: {
+        type: String,
+        required: true,
+    },
     invoice_number: {
         type: String,
         required: true,
@@ -20,10 +24,14 @@ const invoicetableSchema = new mongoose.Schema ({
         required: true
     },
     due_date: {
-        type: Number,
+        type: String,
         required: true,
     },
     total_amount: {
+        type: String,
+        required: true
+    },
+    status: {
         type: String,
         required: true
     }
