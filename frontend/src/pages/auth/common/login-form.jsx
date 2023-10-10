@@ -41,11 +41,10 @@ const LoginForm = () => {
         email,
         password,
       },{ withCredentials: true });
-      console.log(res);
       if (res) {
         alert(res.data.message);
         setTimeout(() => {
-          navigate("/dashboard");
+          navigate("/client");
         }, 1500);
       } else {
         alert(res.data.error);
@@ -63,7 +62,7 @@ const LoginForm = () => {
         type="email"
         register={register}
         error={errors.email}
-        cust
+        onChange={submit}
         className="h-[48px]"
       />
       <Textinput
