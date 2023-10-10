@@ -38,7 +38,7 @@ export const menuItems = [
     isHide: true,
     child: [
       {
-        childtitle: "Vender table",
+        childtitle: "Vendor table",
         childlink: "vendortable",
       },
       {
@@ -50,7 +50,7 @@ export const menuItems = [
         childlink: "bills",
       },
       {
-        childtitle: "Vender creidts",
+        childtitle: "Vendor creidts",
         childlink: "vendorcredit_table",
       }
     ],
