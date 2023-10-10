@@ -22,6 +22,7 @@ app.use(cookieParser());
 
 //Router
 app.use(require("./router/auth.js"));
+app.use(require("./router/fetch.js"));
 app.use(require("./router/customers.js"));
 
 

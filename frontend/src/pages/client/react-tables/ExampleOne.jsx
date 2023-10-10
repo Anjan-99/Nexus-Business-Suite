@@ -25,7 +25,7 @@ const COLUMNS = [
     Header: "Order",
     accessor: "order",
     Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>;
+      return <span>#{row?.cell?.value}</span>; //rows data
     },
   },
   {
