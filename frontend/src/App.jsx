@@ -18,7 +18,15 @@ const Customeradd = lazy(() => import("./pages/client/cust_add"));
 const Customertable = lazy(() => import("./pages/client/customer_table"));
 const Employeeaddtable = lazy(() => import("./pages/client/employee_add"));
 const Employeetable = lazy(() => import("./pages/client/employee_table"));
-const Salarytable = lazy(() => import("./pages/client/salary_table"));
+const Quoteadd = lazy(() => import("./pages/client/quotes_add"));
+const Invoiceadd = lazy(() => import("./pages/client/invoice_add"));
+const Paymentadd = lazy(() => import("./pages/client/Payment_add"));
+const Vendorcreditadd = lazy(() => import("./pages/client/vendorcredit_add"));
+const Vendoradd = lazy(() => import("./pages/client/vendor_add"));
+const Expenseadd = lazy(() => import("./pages/client/expenses_add"));
+const Billadd = lazy(() => import("./pages/client/bills_add"));
+const Employeeadd = lazy(() => import("./pages/client/employee_add"));
+
 
 
 
@@ -245,7 +253,17 @@ function App() {
           <Route path="customertable" element={<Customertable />} />
           <Route path="employeeaddtable" element={<Employeeaddtable />} />
           <Route path="employeetable" element={<Employeetable />} />
-          <Route path="salarytable" element={<Salarytable />} />
+
+          <Route path="quoteadd" element={<Quoteadd />} />
+          <Route path="invoiceadd" element={<Invoiceadd />} />
+          <Route path="paymentadd" element={<Paymentadd />} />
+          <Route path="vendorcreditadd" element={<Vendorcreditadd />} />
+          <Route path="vendoradd" element={<Vendoradd />} />
+          <Route path="expenseadd" element={<Expenseadd />} />
+          <Route path="billadd" element={<Billadd />} />
+          <Route path="employeeadd" element={<Employeeadd />} />
+
+
 
 
 

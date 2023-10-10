@@ -1,5 +1,7 @@
-import React, { useState, useMemo } from "react";
+// Fetch user data from MongoDB using the provided API
+import React, { useState, useEffect, useMemo } from "react";
 import { advancedTable } from "../../../constant/table-data";
+import { useNavigate } from "react-router-dom";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
 import Tooltip from "@/components/ui/Tooltip";
@@ -11,115 +13,161 @@ import {
   usePagination,
 } from "react-table";
 import GlobalFilter from "./GlobalFilter";
+import axios from "axios";
 
-const COLUMNS = [
-  {
-    Header: "Id",
-    accessor: "id",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+const VendorCredit = ({ title = "Vendor Credits Table" }) => {
+  const COLUMNS = [
+    {
+      Header: "Id",
+      accessor: "id",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Name",
-    accessor: "name",
-    Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>;
+    {
+      Header: "name",
+      accessor: "name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Company name",
-    accessor: "company_name",
-    Cell: (row) => {
-      return <span>#{row?.cell?.value}</span>;
+    {
+      Header: "company name",
+      accessor: "company_name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Email",
-    accessor: "email",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "payment amount",
+      accessor: "payment_amount",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Payable amount",
-    accessor: "payable_amount",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "unused credit",
+      accessor: "unused_credit",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
     },
-  },
-  {
-    Header: "Unused credit",
-    accessor: "unused_credit",
-    Cell: (row) => {
-      return <span>{row?.cell?.value}</span>;
+    {
+      Header: "Status",
+      accessor: "status",
+      Cell: (row) => {
+        return (
+          <span className="block w-full">
+            <span
+              className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
+                row?.cell?.value === "paid"
+                  ? "text-success-500 bg-success-500"
+                  : ""
+              } 
+              ${
+                row?.cell?.value === "due"
+                  ? "text-warning-500 bg-warning-500"
+                  : ""
+              }
+              ${
+                row?.cell?.value === "cancled"
+                  ? "text-danger-500 bg-danger-500"
+                  : ""
+              }
+              
+               `}
+            >
+              {row?.cell?.value}
+            </span>
+          </span>
+        );
+      },
     },
-  },
-  {
-    Header: "Action",
-    accessor: "action",
-    Cell: (row) => {
+    {
+      Header: "Action",
+      accessor: "action",
+      Cell: (row) => {
+        return (
+          <div className="flex space-x-3 rtl:space-x-reverse">
+            <Tooltip content="View" placement="top" arrow animation="shift-away">
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:eye" />
+              </button>
+            </Tooltip>
+            <Tooltip content="Edit" placement="top" arrow animation="shift-away">
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:pencil-square" />
+              </button>
+            </Tooltip>
+            <Tooltip
+              content="Delete"
+              placement="top"
+              arrow
+              animation="shift-away"
+              theme="danger"
+            >
+              <button className="action-btn" type="button">
+                <Icon icon="heroicons:trash" />
+              </button>
+            </Tooltip>
+          </div>
+        );
+      },
+    },
+  ];
+
+  const IndeterminateCheckbox = React.forwardRef(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef();
+      const resolvedRef = ref || defaultRef;
+
+      React.useEffect(() => {
+        resolvedRef.current.indeterminate = indeterminate;
+      }, [resolvedRef, indeterminate]);
+
       return (
-        <div className="flex space-x-3 rtl:space-x-reverse">
-          <Tooltip content="View" placement="top" arrow animation="shift-away">
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:eye" />
-            </button>
-          </Tooltip>
-          <Tooltip content="Edit" placement="top" arrow animation="shift-away">
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:pencil-square" />
-            </button>
-          </Tooltip>
-          <Tooltip
-            content="Delete"
-            placement="top"
-            arrow
-            animation="shift-away"
-            theme="danger"
-          >
-            <button className="action-btn" type="button">
-              <Icon icon="heroicons:trash" />
-            </button>
-          </Tooltip>
-        </div>
+        <>
+          <input
+            type="checkbox"
+            ref={resolvedRef}
+            {...rest}
+            className="table-checkbox"
+          />
+        </>
       );
-    },
-  },
-];
+    }
+  );
+  // Initialize state variables
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-const IndeterminateCheckbox = React.forwardRef(
-  ({ indeterminate, ...rest }, ref) => {
-    const defaultRef = React.useRef();
-    const resolvedRef = ref || defaultRef;
+  // Fetch user data from the API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/fetchvendorcredit");
+        console.log(response.data);
+        setData(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-    React.useEffect(() => {
-      resolvedRef.current.indeterminate = indeterminate;
-    }, [resolvedRef, indeterminate]);
+    fetchData();
+  }, []);
 
-    return (
-      <>
-        <input
-          type="checkbox"
-          ref={resolvedRef}
-          {...rest}
-          className="table-checkbox"
-        />
-      </>
-    );
-  }
-);
-
-const VendorCredit = ({ title = "Vendor Credits" }) => {
+  // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
-  const data = useMemo(() => advancedTable, []);
-
+  const tableData = useMemo(() => data, [data]);
+  // ... (Rest of the code remains unchanged)
+  console.log(tableData);
   const tableInstance = useTable(
     {
       columns,
-      data,
+      data: tableData,
     },
-
     useGlobalFilter,
     useSortBy,
     usePagination,
@@ -162,16 +210,22 @@ const VendorCredit = ({ title = "Vendor Credits" }) => {
     setGlobalFilter,
     prepareRow,
   } = tableInstance;
-
+  const navigate2 = useNavigate();
+  const navigateto = () => {
+    navigate2("/billadd");
+  };
   const { globalFilter, pageIndex, pageSize } = state;
   return (
     <>
       <Card>
         <div className="md:flex justify-between items-center mb-6">
           <h4 className="card-title">{title}</h4>
-          <div>
-            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          </div>
+          <button
+              className="btn btn-primary text-center"
+              onClick={navigateto}
+            >
+              Add Bills
+            </button>
         </div>
         <div className="overflow-x-auto -mx-6">
           <div className="inline-block min-w-full align-middle">

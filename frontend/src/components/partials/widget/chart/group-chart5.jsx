@@ -24,7 +24,7 @@ const columnCharthome2 = {
     },
     plotOptions: {
       bar: {
-        columnWidth: "60px",
+        columnWidth: "8px",
         barHeight: "100%",
       },
     },
@@ -94,7 +94,7 @@ const columnCharthome3 = {
     },
     plotOptions: {
       bar: {
-        columnWidth: "60px",
+        columnWidth: "8px",
         barHeight: "100%",
       },
     },
@@ -164,7 +164,7 @@ const columnCharthome4 = {
     },
     plotOptions: {
       bar: {
-        columnWidth: "60px",
+        columnWidth: "8px",
         barHeight: "100%",
       },
     },
@@ -177,7 +177,7 @@ const columnCharthome4 = {
     },
     stroke: {
       curve: "smooth",
-      width: 2,
+      width: 1,
     },
 
     fill: {
@@ -214,7 +214,7 @@ const columnCharthome4 = {
 const statistics = [
   {
     name: columnCharthome3,
-    title: "Current balance ",
+    title: "Current balance",
     count: "$34,564",
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-info-500",
@@ -222,7 +222,7 @@ const statistics = [
   },
   {
     name: columnCharthome4,
-    title: "Credit",
+    title: "Revenue",
     count: "$3,564",
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-warning-500",
@@ -230,7 +230,7 @@ const statistics = [
   },
   {
     name: columnCharthome2,
-    title: "Debit",
+    title: "Expenses",
     count: "$3,564",
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-[#5743BE]",

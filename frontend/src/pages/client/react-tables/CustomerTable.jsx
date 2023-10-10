@@ -232,7 +232,7 @@ const FetchUserData = ({ title = "All Customers" }) => {
 
   const { globalFilter, pageIndex, pageSize } = state;
   const navigate = useNavigate();
-  const navigateToContacts = () => {
+  const navigateto = () => {
     navigate("/customeradd");
   };
   return (
@@ -244,7 +244,7 @@ const FetchUserData = ({ title = "All Customers" }) => {
             {/* <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} /> */}
             <button
               className="btn btn-primary text-center"
-              onClick={navigateToContacts}
+              onClick={navigateto}
             >
               Add Customer
             </button>

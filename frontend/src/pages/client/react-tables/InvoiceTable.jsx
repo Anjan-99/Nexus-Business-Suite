@@ -16,6 +16,7 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
 const InvoiceTable = ({ title = "Invoice Table" }) => {
+  
   const { navigate } = useNavigate();
   const id = 0;
   const COLUMNS = [
@@ -249,14 +250,21 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
   } = tableInstance;
 
   const { globalFilter, pageIndex, pageSize } = state;
+  const navigate2 = useNavigate();
+  const navigateto = () => {
+    navigate2("/invoice-add");
+  };
   return (
     <>
       <Card>
         <div className="md:flex justify-between items-center mb-6">
           <h4 className="card-title">{title}</h4>
-          <div>
-            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          </div>
+          <button
+              className="btn btn-primary text-center"
+              onClick={navigateto}
+            >
+              Add Invoice
+            </button>
         </div>
         <div className="overflow-x-auto -mx-6">
           <div className="inline-block min-w-full align-middle">

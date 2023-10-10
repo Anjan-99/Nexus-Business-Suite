@@ -1,6 +1,7 @@
 // Fetch user data from MongoDB using the provided API
 import React, { useState, useEffect, useMemo } from "react";
 import { advancedTable } from "../../../constant/table-data";
+import { useNavigate } from "react-router-dom";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
 import Tooltip from "@/components/ui/Tooltip";
@@ -217,16 +218,22 @@ const Quotetable = ({ title = "Quote Table" }) => {
     setGlobalFilter,
     prepareRow,
   } = tableInstance;
-
+  const navigate2 = useNavigate();
+  const navigateto = () => {
+    navigate2("/quoteadd");
+  };
   const { globalFilter, pageIndex, pageSize } = state;
   return (
     <>
       <Card>
         <div className="md:flex justify-between items-center mb-6">
           <h4 className="card-title">{title}</h4>
-          <div>
-            <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
-          </div>
+          <button
+              className="btn btn-primary text-center"
+              onClick={navigateto}
+            >
+              Add Quotes
+            </button>
         </div>
         <div className="overflow-x-auto -mx-6">
           <div className="inline-block min-w-full align-middle">
