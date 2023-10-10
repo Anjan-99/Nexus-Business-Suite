@@ -65,6 +65,7 @@ const LoginForm = () => {
         error={errors.email}
         cust
         className="h-[48px]"
+        placeholder="Enter your email"
       />
       <Textinput
         name="password"
@@ -74,6 +75,7 @@ const LoginForm = () => {
         error={errors.password}
         onChange={submit}
         className="h-[48px]"
+        placeholder="Enter your password"
       />
       <div className="flex justify-between">
         <Link
