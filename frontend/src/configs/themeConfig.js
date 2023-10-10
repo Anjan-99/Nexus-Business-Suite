@@ -11,7 +11,7 @@ const themeConfig = {
     skin: "default",
     contentWidth: "full",
     type: "vertical",
-    navBarType: "Stiky",
+    navBarType: "static",
     footerType: "static",
     isMonochrome: false,
     menu: {

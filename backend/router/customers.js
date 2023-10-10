@@ -5,10 +5,12 @@ const Customertable = require("../models/customer_table.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-router.post("/customer_table", async (req, res) => {
-    const { customerid, firstname, lastname, email, phone, address } = req.body;
+router.post("/customer_add", async (req, res) => {
+    const { firstname, lastname,comapanyname, businessType, email, phone, address } = req.body;
+    random = Math.floor(Math.random() * 1000000000);
+    const customerid = firstname + lastname + businessType + random ;
     try { 
-        const customer_table = new Customertable({ customerid, firstname, lastname, email, phone, address });
+        const customer_table = new Customertable({ customerid, firstname, lastname, email, phone, address ,comapanyname, businessType });
         const customer_tabledetails =  await customer_table.save();
         if (customer_tabledetails){
             res.status(201).json({ message: "successfully" });
@@ -19,6 +21,5 @@ router.post("/customer_table", async (req, res) => {
         console.log(err);
     }
 });
-
 
 module.exports = router;

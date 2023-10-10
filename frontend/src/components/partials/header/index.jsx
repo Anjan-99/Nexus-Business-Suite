@@ -93,7 +93,6 @@ const Header = ({ className = "custom-class" }) => {
                   <Icon icon="heroicons-outline:menu-alt-3" />
                 </div>
               )}
-              <SearchModal />
             </div>
           )}
           {/* For Horizontal  */}
@@ -119,14 +118,7 @@ const Header = ({ className = "custom-class" }) => {
           <div className="nav-tools flex items-center lg:space-x-6 space-x-3 rtl:space-x-reverse">
             <SwitchDark />
             {width >= breakpoints.md && <Profile />}
-            {width <= breakpoints.md && (
-              <div
-                className="cursor-pointer text-slate-900 dark:text-white text-2xl"
-                onClick={handleOpenMobileMenu}
-              >
-                <Icon icon="heroicons-outline:menu-alt-3" />
-              </div>
-            )}
+            
           </div>
         </div>
       </div>

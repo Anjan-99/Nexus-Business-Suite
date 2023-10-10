@@ -38,13 +38,6 @@ const FetchUserData = ({ title = "Advanced Table Two" }) => {
         );
       },
     },
-    // {
-    //   Header: "date",
-    //   accessor: "date",
-    //   Cell: (row) => {
-    //     return <span>{row?.cell?.value}</span>;
-    //   },
-    // },
     {
       Header: "quantity",
       accessor: "email",
