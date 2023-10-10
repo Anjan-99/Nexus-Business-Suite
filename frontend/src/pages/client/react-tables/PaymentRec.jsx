@@ -21,88 +21,49 @@ const COLUMNS = [
     },
   },
   {
-    Header: "Order",
-    accessor: "order",
+    Header: "Date",
+    accessor: "date",
     Cell: (row) => {
       return <span>#{row?.cell?.value}</span>;
     },
   },
   {
-    Header: "customer",
-    accessor: "customer",
+    Header: "Customer name",
+    accessor: "customer_name",
     Cell: (row) => {
-      return (
-        <div>
-          <span className="inline-flex items-center">
-            <span className="w-7 h-7 rounded-full ltr:mr-3 rtl:ml-3 flex-none bg-slate-600">
-              <img
-                src={row?.cell?.value.image}
-                alt=""
-                className="object-cover w-full h-full rounded-full"
-              />
-            </span>
-            <span className="text-sm text-slate-600 dark:text-slate-300 capitalize">
-              {row?.cell?.value.name}
-            </span>
-          </span>
-        </div>
-      );
+      return <span>#{row?.cell?.value}</span>;
     },
   },
   {
-    Header: "date",
-    accessor: "date",
+    Header: "Invoice number",
+    accessor: "issue_date",
     Cell: (row) => {
       return <span>{row?.cell?.value}</span>;
     },
   },
   {
-    Header: "quantity",
-    accessor: "quantity",
+    Header: "Mode of payment",
+    accessor: "mode_of_payment",
     Cell: (row) => {
       return <span>{row?.cell?.value}</span>;
     },
   },
   {
-    Header: "amount",
+    Header: "Amount",
     accessor: "amount",
     Cell: (row) => {
       return <span>{row?.cell?.value}</span>;
     },
   },
   {
-    Header: "status",
-    accessor: "status",
+    Header: "Unused amount",
+    accessor: "unused_amount",
     Cell: (row) => {
-      return (
-        <span className="block w-full">
-          <span
-            className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
-              row?.cell?.value === "paid"
-                ? "text-success-500 bg-success-500"
-                : ""
-            } 
-            ${
-              row?.cell?.value === "due"
-                ? "text-warning-500 bg-warning-500"
-                : ""
-            }
-            ${
-              row?.cell?.value === "cancled"
-                ? "text-danger-500 bg-danger-500"
-                : ""
-            }
-            
-             `}
-          >
-            {row?.cell?.value}
-          </span>
-        </span>
-      );
+      return <span>{row?.cell?.value}</span>;
     },
   },
   {
-    Header: "action",
+    Header: "Action",
     accessor: "action",
     Cell: (row) => {
       return (
@@ -156,7 +117,7 @@ const IndeterminateCheckbox = React.forwardRef(
   }
 );
 
-const ExampleTwo = ({ title = "Advanced Table Two" }) => {
+const PaymentRec = ({ title = "Payment Received Table" }) => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => advancedTable, []);
 
@@ -362,4 +323,4 @@ const ExampleTwo = ({ title = "Advanced Table Two" }) => {
   );
 };
 
-export default ExampleTwo;
+export default PaymentRec;

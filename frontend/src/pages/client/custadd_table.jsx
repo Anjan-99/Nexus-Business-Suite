@@ -1,13 +1,13 @@
 import React from "react";
 import Card from "@/components/ui/Card";
-import PaymentRec from "./react-tables/PaymentRec";
+import CustAdd from "./react-tables/CustAdd";
 
-const paymenttable = () => {
+const custadd = () => {
   return (
     <div className=" space-y-5">
-      <PaymentRec />
+      <CustAdd />
     </div>
   );
 };
 
-export default paymenttable;
+export default custadd;

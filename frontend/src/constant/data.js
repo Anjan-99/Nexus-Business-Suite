@@ -18,7 +18,7 @@ export const menuItems = [
         childlink: "invoicetable",
       },
       {
-        childtitle: "Quates table",
+        childtitle: "Quotes table",
         childlink: "quotetable",
       },
       {

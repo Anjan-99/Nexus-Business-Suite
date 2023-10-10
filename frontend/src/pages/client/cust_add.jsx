@@ -6,6 +6,8 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import CustAdd from "./react-tables/CustAdd";
+
 
 const FormValidationSchema = yup
   .object({
@@ -83,6 +85,11 @@ const customeradd = () => {
       </Card>
     </div>
   );
+  
 };
 
+
 export default customeradd;
+
+
+
