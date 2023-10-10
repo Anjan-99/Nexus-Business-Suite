@@ -43,7 +43,7 @@ export const menuItems = [
       },
       {
         childtitle: "Expenses",
-        childlink: "expresstable",
+        childlink: "expensestable",
       },
       {
         childtitle: "Bills",

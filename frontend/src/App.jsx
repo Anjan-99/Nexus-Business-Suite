@@ -11,7 +11,7 @@ const Financetable = lazy(() => import("./pages/client/finc_table"));
 const Quotetable = lazy(() => import("./pages/client/quote_table"));
 const Paymenttable = lazy(() => import("./pages/client/payment_table"));
 const Vendortable = lazy(() => import("./pages/client/vendor_table"));
-const Expresstable = lazy(() => import("./pages/client/express_table"));
+const Expensestable = lazy(() => import("./pages/client/expenses_table"));
 const Bills = lazy(() => import("./pages/client/bills_table"));
 const Vendorcredittable = lazy(() => import("./pages/client/vendorcredit_table"));
 const Customeradd = lazy(() => import("./pages/client/cust_add"));
@@ -238,7 +238,7 @@ function App() {
           <Route path="quotetable" element={<Quotetable />} />
           <Route path="paymenttable" element={<Paymenttable />} />
           <Route path="vendortable" element={<Vendortable />} />
-          <Route path="expresstable" element={<Expresstable />} />
+          <Route path="expensestable" element={<Expensestable />} />
           <Route path="bills" element={<Bills />} />
           <Route path="vendorcredit_table" element={<Vendorcredittable />} />
           <Route path="customeradd" element={<Customeradd />} />
