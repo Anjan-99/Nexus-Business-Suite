@@ -140,6 +140,3 @@ const customeradd = () => {
 
 
 export default customeradd;
-
-
-

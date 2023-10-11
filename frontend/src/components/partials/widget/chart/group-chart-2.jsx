@@ -209,7 +209,7 @@ const statistics = [
   {
     name: shapeLine1,
     title: "Totel Customers",
-    count: "3,564",
+    count: "10",
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-info-500",
     icon: "heroicons:shopping-cart",
@@ -217,7 +217,7 @@ const statistics = [
   {
     name: shapeLine2,
     title: "Vendors",
-    count: "15",
+    count: "10",
     bg: "bg-[#FFEDE6] dark:bg-slate-900	",
     text: "text-warning-500",
     icon: "heroicons:cube",
