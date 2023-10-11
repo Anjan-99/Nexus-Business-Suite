@@ -52,7 +52,7 @@ const customeradd = () => {
       if (res) {
         alert(res.data.message);
         setTimeout(() => {
-          navigate("/customer_table"); //redirect to table
+          navigate("/customertable"); //redirect to table
         }, 1500);
       } else {
         alert(res.data.error);
