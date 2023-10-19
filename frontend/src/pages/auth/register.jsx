@@ -23,9 +23,9 @@ const register = () => {
               <img src={isDark ? LogoWhite : Logo} alt="" width="40%" className="mb-10" />
               </Link>
 
-                <h4>
-              A BUSINESS <br/>              <span className="text-slate-800 dark:text-slate-400 font-bold">
-              POWERHOUSE
+              <h4>
+              Cloud Accounting <br/>              <span className="text-slate-800 dark:text-slate-400 font-bold">
+              PLATFORM
                 </span>
               </h4>
             </div>

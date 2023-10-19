@@ -21,22 +21,22 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
   const id = 0;
   const COLUMNS = [
     {
-      Header: "Id",
-      accessor: "invoice_id",
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>;
-      },
-    },
-    {
-      Header: "Customer id",
-      accessor: "customer_id",
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>;
-      },
-    },
-    {
-      Header: "Invoice number",
+      Header: "invoice_number",
       accessor: "invoice_number",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Customer Name",
+      accessor: "cust_name",
+      Cell: (row) => {
+        return <span>{row?.cell?.value}</span>;
+      },
+    },
+    {
+      Header: "Client Name",
+      accessor: "res_name",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
@@ -44,13 +44,6 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
     {
       Header: "Issue date",
       accessor: "issue_date",
-      Cell: (row) => {
-        return <span>{row?.cell?.value}</span>;
-      },
-    },
-    {
-      Header: "Due date",
-      accessor: "due_date",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
       },
@@ -84,6 +77,11 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
                   ? "text-danger-500 bg-danger-500"
                   : ""
               }
+              ${
+                row?.cell?.value === "unpaid"
+                  ? "text-danger-500 bg-danger-500"
+                  : ""
+              }
               
                `}
             >
@@ -95,7 +93,7 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
     },
     {
       Header: "Action",
-      accessor: "id",
+      accessor: "_id",
       Cell: (row) => {
         const deleterow = async (e) => {
           e.preventDefault();
@@ -103,12 +101,18 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
           try {
             const id = row?.cell?.value;
             const res = axios.delete(
-              `http://localhost:5000/invoice_delete/${id}`,
+              `http://localhost:5000/Invoice_table/${id}`,
               {
                 id,
               },
               { withCredentials: false }
             );
+            if (res) {
+              alert(res.data.message);
+              navigate("/invoice-table");
+            } else {
+              alert(res.data.error);
+            }
           } catch (error) {
             console.log(error);
           }
