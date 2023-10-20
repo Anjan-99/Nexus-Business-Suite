@@ -85,10 +85,6 @@ export const menuItems = [
         childtitle: "Employee table",
         childlink: "employeetable",
       },
-      {
-        childtitle: "Salary table",
-        childlink: "salarytable",
-      },
     ],
   },
   {
