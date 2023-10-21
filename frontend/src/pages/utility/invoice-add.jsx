@@ -54,7 +54,7 @@ const InvoiceAddPage = () => {
       }
     }
   };
-  //add invoice to database 
+  //add invoice to database
   const addinvoice = async () => {
     const customer_id = selectedOption._id;
     const issue_date = document.getElementById("default-picker").value;
@@ -72,23 +72,26 @@ const InvoiceAddPage = () => {
     const additional_info = document.getElementById("note").value;
     console.log(cust_name);
     try {
-      const res = await axios.post("http://localhost:5000/invoice_add", {
-        issue_date,
-        customer_id,
-        cust_name,
-        cust_phone,
-        cust_email,
-        cust_address,
-        res_name,
-        res_phone,
-        res_email,
-        res_address,
-        item_name,
-        item_quantity,
-        total_amount,
-        additional_info,
-      },{ withCredentials: true
-      });
+      const res = await axios.post(
+        "http://localhost:5000/invoice_add",
+        {
+          issue_date,
+          customer_id,
+          cust_name,
+          cust_phone,
+          cust_email,
+          cust_address,
+          res_name,
+          res_phone,
+          res_email,
+          res_address,
+          item_name,
+          item_quantity,
+          total_amount,
+          additional_info,
+        },
+        { withCredentials: true }
+      );
       if (res) {
         alert(res.data.message);
       } else {
@@ -129,7 +132,7 @@ const InvoiceAddPage = () => {
 
             <div>
               <label htmlFor=" hh" className="form-label ">
-                Customer Name 
+                Customer Name
               </label>
               <Select
                 onChange={fillcust}
@@ -171,14 +174,24 @@ const InvoiceAddPage = () => {
               Owner info
             </div>
 
-            <Textinput label="Name" id="rname" type="text" placeholder="Add your name" />
-            <Textinput label="Phone" id="rphone" type="text" placeholder="Add your phone" />
+            <Textinput
+              label="Name"
+              id="rname"
+              type="text"
+              placeholder="Add your name"
+            />
+            <Textinput
+              label="Phone"
+              id="rphone"
+              type="text"
+              placeholder="Add your phone"
+            />
             <div className="lg:col-span-2 col-span-1">
               <Textinput
                 label="Email"
                 type="email"
                 placeholder="Add your email"
-                id = "remail"
+                id="remail"
               />
             </div>
 
@@ -192,7 +205,12 @@ const InvoiceAddPage = () => {
               />
             </div>
           </div>
-          <Textinput label="Item Name" id="itemname" type="text" placeholder="Item Name" />
+          <Textinput
+            label="Item Name"
+            id="itemname"
+            type="text"
+            placeholder="Item Name"
+          />
           <Textinput
             label="Quantity"
             type="text"
@@ -200,7 +218,12 @@ const InvoiceAddPage = () => {
             placeholder="Total Quantity"
           />
           <div className="lg:col-span-2 col-span-1">
-            <Textinput label="Total" type="text" id="total" placeholder="Total Amount" />
+            <Textinput
+              label="Total"
+              type="text"
+              id="total"
+              placeholder="Total Amount"
+            />
           </div>
         </div>
         <br />
@@ -213,7 +236,7 @@ const InvoiceAddPage = () => {
           className="lg:w-1/2"
         />
         <div className="ltr:text-right rtl:text-left space-x-3 rtl:space-x-reverse">
-          <Button text="Save" className="btn-dark" onClick={addinvoice}/>
+          <Button text="Save" className="btn-dark" onClick={addinvoice} />
         </div>
       </Card>
     </div>

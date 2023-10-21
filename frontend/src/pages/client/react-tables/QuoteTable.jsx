@@ -22,21 +22,21 @@ const Quotetable = ({ title = "Quote Table" }) => {
       Header: "Id",
       accessor: "id",
       Cell: (row) => {
-        return <span>{row?.cell?.value}</span>;
+        return <span>#{row?.cell?.value}</span>;
       },
     },
     {
-      Header: "Customer id",
-      accessor: "customer_id",
+      Header: "Customer name",
+      accessor: "cust_name",
       Cell: (row) => {
-        return <span>#{row?.cell?.value}</span>;
+        return <span>{row?.cell?.value}</span>;
       },
     },
     {
       Header: "Quote number",
       accessor: "quote_number",
       Cell: (row) => {
-        return <span>#{row?.cell?.value}</span>;
+        return <span>{row?.cell?.value}</span>;
       },
     },
     {
@@ -71,7 +71,12 @@ const Quotetable = ({ title = "Quote Table" }) => {
                 row?.cell?.value === "paid"
                   ? "text-success-500 bg-success-500"
                   : ""
-              } 
+              }
+              ${
+                row?.cell?.value === "unpaid"
+                  ? "text-danger-500 bg-danger-500"
+                  : ""
+              }
               ${
                 row?.cell?.value === "due"
                   ? "text-warning-500 bg-warning-500"
@@ -154,7 +159,6 @@ const Quotetable = ({ title = "Quote Table" }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/fetchquote");
-        console.log(response.data);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -170,7 +174,6 @@ const Quotetable = ({ title = "Quote Table" }) => {
   const columns = useMemo(() => COLUMNS, []);
   const tableData = useMemo(() => data, [data]);
   // ... (Rest of the code remains unchanged)
-  console.log(tableData);
   const tableInstance = useTable(
     {
       columns,

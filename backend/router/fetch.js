@@ -24,6 +24,22 @@ router.get("/fetchuser", async (req, res) => {
         console.log(err);
     }
 });
+
+//find invoice details
+router.post("/invoice_find", async (req, res) => {
+    const { invoice_id } = req.body;
+    try { 
+        const invoice_tabledetails =  await Invoice_table.find({invoice_id}).populate("customer_id");
+        if (invoice_tabledetails){
+            res.status(201).json({ message: "successfully", invoice_tabledetails });
+        } else {
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
 //invoice fetch
 router.get("/fetchinvoice", async (req, res) => {
     try {

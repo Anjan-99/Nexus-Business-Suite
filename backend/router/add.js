@@ -31,29 +31,13 @@ router.post("/invoice_add", async (req, res) => {
     }
 });
 
-//find invoice details
-router.post("/invoice_find", async (req, res) => {
-    const { invoice_id } = req.body;
-    try { 
-        const invoice_tabledetails =  await Invoice_table.find({invoice_id}).populate("customer_id");
-        if (invoice_tabledetails){
-            res.status(201).json({ message: "successfully", invoice_tabledetails });
-        } else {
-            res.status(400).json({ message: "unsuccessfully" });
-        }
-    } catch (err){
-        console.log(err);
-    }
-});
-
 //quote add to database
 router.post("/quote_add", async (req, res) => {
-    const { customer_id, quote_date, valid_until, total_amount} = req.body;
-    const id  = Math.floor(Math.random() * 10000) + 1;
-    const quote_number = customer_id + id; 
+    const { customer_id,cust_name,  quote_number, quote_date, valid_until,item_name,total_amount,additional_info} = req.body;
+    const id  = Math.floor(Math.random() * 1000) + 1;
     const status = "paid";
     try { 
-        const quotes_table = new Quotes_table({ id, customer_id, quote_number, quote_date, valid_until, total_amount, status});
+        const quotes_table = new Quotes_table({ id, customer_id,cust_name, quote_number, quote_date, valid_until,item_name, total_amount,additional_info, status});
         const quotes_tabledetails =  await quotes_table.save();
         if (quotes_tabledetails){
             res.status(201).json({ message: "successfully" });

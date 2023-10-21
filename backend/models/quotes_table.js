@@ -8,6 +8,11 @@ const quotestableSchema = new mongoose.Schema ({
         required: true,
     },
     customer_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'customer_table',
+        required: true,
+    },
+    cust_name: {
         type: String,
         required: true,
     },
@@ -23,9 +28,17 @@ const quotestableSchema = new mongoose.Schema ({
         type: String,
         required: true,
     },
+    item_name: {
+        type: String,
+        required: true,
+    },
     total_amount: {
         type: String,
         required: true
+    },
+    additional_info: {
+        type: String,
+        required: true,
     },
     status: {
         type: String,
