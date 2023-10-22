@@ -16,6 +16,7 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
 const FetchUserData = ({ title = "All Customers" }) => {
+  const [updateRows, setUpdateRows] = useState(0);
   const COLUMNS = [
     {
       Header: "Id",
@@ -92,9 +93,31 @@ const FetchUserData = ({ title = "All Customers" }) => {
     //   },
     // },
     {
-      Header: "action",
-      accessor: "action",
+      Header: "Action",
+      accessor: "_id",
       Cell: (row) => {
+        const deleterow = async (e) => {
+          e.preventDefault();
+
+          try {
+            const id = row?.cell?.value;
+            const res = await axios.delete(
+              `http://localhost:5000/customer/${id}`,
+              {
+                id,
+              },
+              { withCredentials: false }
+            );
+            if (res.status === 200) {
+              alert(res.data.message);
+              setUpdateRows((data) => data + 1);
+            } else {
+              alert(res.data.error);
+            }
+          } catch (error) {
+            console.log("catch Error", error);
+          }
+        };
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -124,7 +147,7 @@ const FetchUserData = ({ title = "All Customers" }) => {
               animation="shift-away"
               theme="danger"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={deleterow} type="button">
                 <Icon icon="heroicons:trash" />
               </button>
             </Tooltip>
@@ -174,7 +197,7 @@ const FetchUserData = ({ title = "All Customers" }) => {
     };
 
     fetchData();
-  }, []);
+  }, [updateRows]);
 
   // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
