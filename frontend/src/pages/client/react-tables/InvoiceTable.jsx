@@ -16,8 +16,11 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
 const InvoiceTable = ({ title = "Invoice Table" }) => {
-  
-  const { navigate } = useNavigate();
+  const navigate = useNavigate();
+  // Initialize state variables
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [updateRows, setUpdateRows] = useState(0);
   const id = 0;
   const COLUMNS = [
     {
@@ -97,24 +100,24 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
       Cell: (row) => {
         const deleterow = async (e) => {
           e.preventDefault();
-          
+
           try {
             const id = row?.cell?.value;
-            const res = axios.delete(
-              `http://localhost:5000/Invoice_table/${id}`,
+            const res = await axios.delete(
+              `http://localhost:5000/invoice/${id}`,
               {
                 id,
               },
               { withCredentials: false }
             );
-            if (res) {
+            if (res.status === 200) {
               alert(res.data.message);
-              navigate("/invoice-table");
+              setUpdateRows((data) => data + 1);
             } else {
               alert(res.data.error);
             }
           } catch (error) {
-            console.log(error);
+            console.log("catch Error", error);
           }
         };
 
@@ -178,9 +181,6 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
       );
     }
   );
-  // Initialize state variables
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   // Fetch user data from the API
   useEffect(() => {
@@ -197,7 +197,7 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
     };
 
     fetchData();
-  }, []);
+  }, [updateRows]);
 
   // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
@@ -263,12 +263,9 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
       <Card>
         <div className="md:flex justify-between items-center mb-6">
           <h4 className="card-title">{title}</h4>
-          <button
-              className="btn btn-primary text-center"
-              onClick={navigateto}
-            >
-              Add Invoice
-            </button>
+          <button className="btn btn-primary text-center" onClick={navigateto}>
+            Add Invoice
+          </button>
         </div>
         <div className="overflow-x-auto -mx-6">
           <div className="inline-block min-w-full align-middle">

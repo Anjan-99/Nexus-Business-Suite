@@ -13,19 +13,19 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
 //delete invoice from database
-// router.post("/invoice_delete", async (req, res) => {
-//     const id = req.body;
-//     console.log(id)
-//     try { 
-//         const invoice_table = await Invoice_table.findByIdAndRemove(id);
-//         if (invoice_table){
-//             res.status(201).json({ message: "successfully" });
-//         } else {
-//             res.status(400).json({ message: "unsuccessfully" });
-//         }
-//     } catch (err){
-//         console.log(err);
-//     }
-// });
+router.delete("/invoice/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const invoice_table = await Invoice_table.findByIdAndDelete(id);
+    if (invoice_table) {
+      res.status(200).json({ message: "successfully" });
+    } else {
+      res.status(400).json({ message: "unsuccessfully" });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 module.exports = router;
