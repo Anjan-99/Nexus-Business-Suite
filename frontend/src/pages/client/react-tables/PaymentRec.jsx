@@ -15,7 +15,7 @@ import {
 import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
-const PaymentRec = ({ title = "Quote Table" }) => {
+const PaymentRec = ({ title = "Payment Table" }) => {
   const [updateRows, setUpdateRows] = useState(0);
   const COLUMNS = [
     {
