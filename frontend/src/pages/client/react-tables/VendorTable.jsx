@@ -16,6 +16,7 @@ import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
 
 const VendorTable = ({ title = "Vendor Table" }) => {
+  const [updateRows, setUpdateRows] = useState(0);
   const COLUMNS = [
     {
       Header: "Id",
@@ -61,16 +62,48 @@ const VendorTable = ({ title = "Vendor Table" }) => {
     },
     {
       Header: "Action",
-      accessor: "action",
+      accessor: "_id",
       Cell: (row) => {
+        const deleterow = async (e) => {
+          e.preventDefault();
+
+          try {
+            const id = row?.cell?.value;
+            const res = await axios.delete(
+              `http://localhost:5000/vendor/${id}`,
+              {
+                id,
+              },
+              { withCredentials: false }
+            );
+            if (res.status === 200) {
+              alert(res.data.message);
+              setUpdateRows((data) => data + 1);
+            } else {
+              alert(res.data.error);
+            }
+          } catch (error) {
+            console.log("catch Error", error);
+          }
+        };
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
-            <Tooltip content="View" placement="top" arrow animation="shift-away">
+            <Tooltip
+              content="View"
+              placement="top"
+              arrow
+              animation="shift-away"
+            >
               <button className="action-btn" type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>
-            <Tooltip content="Edit" placement="top" arrow animation="shift-away">
+            <Tooltip
+              content="Edit"
+              placement="top"
+              arrow
+              animation="shift-away"
+            >
               <button className="action-btn" type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
@@ -82,7 +115,7 @@ const VendorTable = ({ title = "Vendor Table" }) => {
               animation="shift-away"
               theme="danger"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={deleterow} type="button">
                 <Icon icon="heroicons:trash" />
               </button>
             </Tooltip>
@@ -132,7 +165,7 @@ const VendorTable = ({ title = "Vendor Table" }) => {
     };
 
     fetchData();
-  }, []);
+  }, [updateRows]);
 
   // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
