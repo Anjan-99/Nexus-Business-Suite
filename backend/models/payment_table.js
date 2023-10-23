@@ -26,10 +26,6 @@ const paymenttableSchema = new mongoose.Schema ({
     amount: {
         type: Number,
         required: true,
-    },
-    unused_amount: {
-        type: Number,
-        required: true
     }
 })
 
