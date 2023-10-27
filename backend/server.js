@@ -24,6 +24,7 @@ app.use(cookieParser());
 app.use(require("./router/auth.js"));
 app.use(require("./router/fetch.js"));
 app.use(require("./router/add.js"));
+app.use(require("./router/update.js"));
 app.use(require("./router/delete.js"));
 app.use(require("./router/customers.js"));
 

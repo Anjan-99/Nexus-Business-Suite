@@ -11,31 +11,18 @@ import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import Flatpickr from "react-flatpickr";
-import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
+
 const paymentadd = () => {
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
   const navigate = useNavigate();
 
   const [user, setUser] = useState({});
   const [selectedOption, setSelectedOption] = useState({});
+  const [mode_of_payment, setMode] = useState({});
   const customer = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/fetchcustomer", {
+      const res = await axios.get("http://localhost:5000/filterpayment", {
         method: "GET",
         withCredentials: true,
         header: {
@@ -55,29 +42,37 @@ const paymentadd = () => {
   //store firstname in cust array
   const cust = [];
   for (let i = 0; i < user.length; i++) {
-    cust.push({ value: user[i].firstname, label: user[i].firstname });
+    cust.push({ value: user[i].cust_name, label: user[i].cust_name });
   }
 
-  const custmap = cust.map((firstname) => {
-    return firstname.firstname;
+  const custmap = cust.map((cust_name) => {
+    return cust_name.cust_name;
   });
 
   //fill selected customer info in the form
   const fillcust = (e) => {
     for (let i = 0; i < user.length; i++) {
-      if (user[i].firstname === e.value) {
+      if (user[i].cust_name === e.value) {
         const selectedOption = user[i];
         setSelectedOption(selectedOption);
-        document.getElementById("cphone").value = selectedOption.phone;
-        document.getElementById("cemail").value = selectedOption.email;
-        document.getElementById("caddress").value = selectedOption.address;
+        document.getElementById("unamount").value = selectedOption.total_amount;
+        document.getElementById("amount").value = selectedOption.total_amount;
       }
     }
   };
-
+  const handlechange = (e) => {
+    setMode(e.value);
+  };
   const custadd = async (e) => {
     e.preventDefault();
-
+    const id = selectedOption._id;
+    const customer_name = selectedOption.cust_name;
+    const invoice_number = selectedOption.invoice_number;
+    const date = document.getElementById("default-picker").value;
+    const amount = document.getElementById("amount").value;
+    const unused_amount = document.getElementById("unamount").value;
+    const updateamt = unused_amount - amount;
+    console.log(mode_of_payment);
     try {
       const res = await axios.post(
         "http://localhost:5000/payment_add",
@@ -91,12 +86,22 @@ const paymentadd = () => {
         },
         { withCredentials: true }
       );
-      console.log(res);
+      const invoiceres = await axios.put (
+        `http://localhost:5000//invoicerecupdate/${id}`,
+        {
+          id,
+          invoice_number,
+          updateamt,
+        },
+        { withCredentials: false }
+      );
       if (res) {
-        alert(res.data.message);
-        setTimeout(() => {
-          navigate("/payment_table"); //redirect to table
-        }, 1500);
+        if (invoiceres) {
+          alert(res.data.message);
+          setTimeout(() => {
+            navigate("/payment_table"); //redirect to table
+          }, 1500);
+        }
       } else {
         alert(res.data.error);
       }
@@ -104,6 +109,7 @@ const paymentadd = () => {
       console.log(error);
     }
   };
+
   const Modeofpay = [
     { value: "Cash", label: "Cash" },
     { value: "Cheque", label: "Cheque" },
@@ -126,7 +132,6 @@ const paymentadd = () => {
                 <label htmlFor="default-picker" className=" form-label">
                   Date
                 </label>
-
                 <Flatpickr
                   className="form-control py-2"
                   value={picker}
@@ -155,28 +160,27 @@ const paymentadd = () => {
                 <Select
                   className="react-select"
                   classNamePrefix="select"
-                  defaultValue={Modeofpay[0]}
                   options={Modeofpay}
                   styles={styles}
+                  onChange={handlechange}
                   id="hh"
                 />
               </div>
-              
 
               <Textinput
-                name="amount"
                 label="Unpaid Amount"
-                register={register}
+                placeholder="Unpaid Amount"
+                value=""
+                id="unamount"
+                disabled={true}
               />
-              
             </div>
             <Textinput
-                name="amount"
-                label="Amount"
-                register={register}
-                placeholder="$8000"
-                isMask
-              />
+              label="Amount"
+              id = "amount"
+              placeholder="$8000"
+              value=""
+            />
             <div className="ltr:text-left rtl:text-right">
               <button className="btn btn-primary text-center" onClick={custadd}>
                 Submit

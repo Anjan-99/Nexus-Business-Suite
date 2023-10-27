@@ -7,12 +7,16 @@ import Textarea from "@/components/ui/Textarea";
 import Repeater from "./Repeater";
 import Flatpickr from "react-flatpickr";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 import { set } from "mongoose";
 
 const InvoiceAddPage = () => {
   //fetch customer name from api and make it as a option
   const [user, setUser] = useState({});
+  const navigate = useNavigate();
   const [selectedOption, setSelectedOption] = useState({});
+  const [status, setStatus] = useState({});
   const customer = async () => {
     try {
       const res = await axios.get("http://localhost:5000/fetchcustomer", {
@@ -38,6 +42,10 @@ const InvoiceAddPage = () => {
     cust.push({ value: user[i].firstname, label: user[i].firstname });
   }
 
+  //handle status change
+  const handlechange = (e) => {
+    setStatus(e.value);
+  };
   const custmap = cust.map((firstname) => {
     return firstname.firstname;
   });
@@ -70,7 +78,6 @@ const InvoiceAddPage = () => {
     const item_quantity = document.getElementById("quantity").value;
     const total_amount = document.getElementById("total").value;
     const additional_info = document.getElementById("note").value;
-    console.log(cust_name);
     try {
       const res = await axios.post(
         "http://localhost:5000/invoice_add",
@@ -89,18 +96,25 @@ const InvoiceAddPage = () => {
           item_quantity,
           total_amount,
           additional_info,
+          status,
         },
         { withCredentials: true }
       );
       if (res) {
         alert(res.data.message);
+        navigate("/invoice_table");
       } else {
         alert(res.data.error);
+        navigate("/invoice_table");
       }
     } catch (error) {
       console.log(error);
     }
   };
+  const statusdata = [
+    { value: "paid", label: "paid" },
+    { value: "unpaid", label: "unpaid" },
+  ];
 
   const styles = {
     option: (provided, state) => ({
@@ -217,7 +231,7 @@ const InvoiceAddPage = () => {
             id="quantity"
             placeholder="Total Quantity"
           />
-          <div className="lg:col-span-2 col-span-1">
+          <div>
             <Textinput
               label="Total"
               type="text"
@@ -225,6 +239,20 @@ const InvoiceAddPage = () => {
               placeholder="Total Amount"
             />
           </div>
+          <div>
+              <label htmlFor=" hh" className="form-label ">
+                Status
+              </label>
+              <Select
+                className="react-select"
+                classNamePrefix="select"
+                defaultValue="select"
+                options={statusdata}
+                styles={styles}
+                onChange={handlechange}
+                id="status"
+              />
+            </div>
         </div>
         <br />
         <Textarea

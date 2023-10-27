@@ -132,6 +132,7 @@ const quotesadd = () => {
                   defaultValue="select"
                   options={cust}
                   styles={styles}
+                  value={user.firstname}
                   id="customer_name"
                 />
               </div>

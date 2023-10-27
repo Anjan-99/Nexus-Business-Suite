@@ -14,10 +14,9 @@ const jwt = require("jsonwebtoken");
 
 //invoice add to database
 router.post("/invoice_add", async (req, res) => {
-    const { issue_date ,customer_id ,cust_name, cust_phone, cust_email,cust_address, res_name, res_phone, res_email, res_address, item_name, item_quantity, total_amount, additional_info} = req.body;
+    const { issue_date ,customer_id ,cust_name, cust_phone, cust_email,cust_address, res_name, res_phone, res_email, res_address, item_name, item_quantity, total_amount, additional_info,status} = req.body;
     const invoice_id  = Math.floor(Math.random() * 100) + 1;
     const invoice_number = "#"+invoice_id;
-    const status = "unpaid";
     try { 
         const invoice_table = new Invoice_table({ invoice_id, customer_id, invoice_number, cust_name, issue_date, cust_phone, cust_email, cust_address, res_name, res_phone, res_email, res_address, additional_info, total_amount, item_name, item_quantity, status});
         const invoice_tabledetails =  await invoice_table.save();
@@ -51,9 +50,8 @@ router.post("/quote_add", async (req, res) => {
 
 //payment record add to database
 router.post("/payment_add", async (req, res) => {
-    const { date, customer_name, mode_of_payment,amount,unused_amount} = req.body;
-    const id  = Math.floor(Math.random() * 10000) + 1;
-    const invoice_number = customer_name + id;
+    const { customer_name,invoice_number,mode_of_payment,date,amount,unused_amount} = req.body;
+    const id  = Math.floor(Math.random() * 1000) + 1;
     try { 
         const payment_table = new Payment_table({ id, date, customer_name, invoice_number, mode_of_payment,amount,unused_amount});
         const payment_tabledetails =  await payment_table.save();

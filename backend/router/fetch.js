@@ -74,14 +74,14 @@ router.get("/fetchpayment", async (req, res) => {
 });
 
 //filter payment record fetch
-router.post("/filterpayment", async (req, res) => {
+router.get("/filterpayment", async (req, res) => {
     //fetch invoice details and check if the invoice is paid or not and only display the unpaid invoices
     try{
         const userFetch = await Invoice_table.find();
         const unpaid_invoices = userFetch.filter((Invoice_table) => Invoice_table.status === "unpaid");
         //get all name form upaid invoices and store it in an array
         const unpaid_invoices_name = unpaid_invoices.map((Invoice_table) => Invoice_table.cust_name);
-        res.json(unpaid_invoices_name);
+        res.json(unpaid_invoices);
     }
     catch(err){
         console.log(err);
