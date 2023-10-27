@@ -38,18 +38,16 @@ router.post("/login", async (req, res) => {
             return res.status(400).json({ error: "Please fill all the fields" });
         }
         const userLogin = await User.findOne({ email: email });
-        
         if (userLogin){
             const isMatch = await bcrypt.compare(password, userLogin.password);
             const token = await userLogin.generateAuthToken();
-            console.log(token);
 
             res.cookie("jwtoken", token,{
                 expires:new Date(Date.now() + 25892000000),
                 httpOnly:true
             });
             if (isMatch){
-                res.status(201).json({ message: "User logged in successfully" });
+                res.status(201).json({ message: "User logged in successfully"});
             } else {
                 res.status(400).json({ error: "Invalid credentials" });
             }
