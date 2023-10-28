@@ -84,11 +84,10 @@ router.post("/vendor_add", async (req, res) => {
 
 //add espenses table to database
 router.post("/expenses_add", async (req, res) => {
-    const {date, expenses, vendor_name, mode_of_payment, customer_name, amount} = req.body;
-    const id  = Math.floor(Math.random() * 10000) + 1;
-    const status = "paid";
+    const {date, expenses, vendor_name, mode_of_payment, customer_name, item} = req.body;
+    const id  = Math.floor(Math.random() * 1000) + 1;
     try { 
-        const expenses_table = new Expenses_table({ id, date, expenses, vendor_name, mode_of_payment, customer_name, amount,status});
+        const expenses_table = new Expenses_table({ id, date, expenses, vendor_name, mode_of_payment, customer_name, item});
         const expenses_tabledetails =  await expenses_table.save();
         if (expenses_tabledetails){
             res.status(201).json({ message: "successfully" });

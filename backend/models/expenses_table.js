@@ -27,13 +27,9 @@ const expensestableSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
-    amount: {
-        type: Number,
-        required: true,
-    },
-    status: {
+    item: {
         type: String,
-        required: true,
+        required: true
     },
 })
 

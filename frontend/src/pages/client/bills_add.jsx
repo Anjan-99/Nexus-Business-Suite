@@ -5,47 +5,44 @@ import InputGroup from "@/components/ui/InputGroup";
 import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Fileinput from "@/components/ui/Fileinput";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
 const billsadd = () => {
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
+  const [selectedFiles2, setSelectedFiles2] = useState([]);
   const navigate = useNavigate();
 
-  const [cust , setUser] = useState()
+  const [cust, setUser] = useState();
   const submit = (e) => {
     const { name, value } = e.target;
-    setUser({...cust,[name]:value})
-  }
+    setUser({ ...cust, [name]: value });
+  };
+
+  const handleFileChangeMultiple2 = (e) => {
+    const files = e.target.files;
+    const filesArray = Array.from(files).map((file) => file);
+    setSelectedFiles2(filesArray);
+  };
 
   const custadd = async (e) => {
     e.preventDefault();
-    
-    const { vendor_name, bill, bill_date, due_date, amount} = cust; //form inputs
+
+    const { vendor_name, bill, bill_date, due_date, amount } = cust; //form inputs
     try {
-      const res = await axios.post("http://localhost:5000/customer_add", {
-        vendor_name,
-        bill,
-        bill_date,
-        due_date,
-        amount
-      },{ withCredentials: true });
+      const res = await axios.post(
+        "http://localhost:5000/customer_add",
+        {
+          vendor_name,
+          bill,
+          bill_date,
+          due_date,
+          amount,
+        },
+        { withCredentials: true }
+      );
       console.log(res);
       if (res) {
         alert(res.data.message);
@@ -62,57 +59,55 @@ const billsadd = () => {
 
   return (
     <div>
-      <Card title="Add Bill"> 
+      <Card title="Add Bill">
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
               <Textinput
-                name = "vendor_name"
                 label="Vendor Name"
-                register={register}
                 onChange={submit}
                 isMask
                 placeholder="Ex: viral gautami, ... etc."
               />
               <Textinput
-                name = "bill"
                 label="Bill"
-                register={register}
                 onChange={submit}
                 isMask
                 placeholder="Ex: flat_fee, etc."
               />
               <Textinput
-                name = "bill_date"
                 label="Bill Date"
-                register={register}
                 onChange={submit}
                 isMask
                 placeholder="Ex: 24/09/2023,... etc"
               />
               <Textinput
-                name = "due_date"
                 label="Due Date"
-                register={register}
                 onChange={submit}
                 isMask
                 placeholder="Ex: 25/09/2023,.. etc."
               />
               <Textinput
-                name = "amount"
                 label="Amount"
-                register={register}
                 onChange={submit}
                 placeholder="Ex: $6000,... etc."
                 isMask
               />
             </div>
-            <div className="grid xl:grid-cols-1 grid-cols-1 gap-5">
-              <Textarea label="Address" id="pn4" name="address" placeholder="Address" register={register}
-                onChange={submit} />
-            </div>
+            <label htmlFor=" hh" className="form-label ">
+            Bill Attachment
+            </label>
+            <Fileinput
+              Label="Bill Attachment"
+              selectedFiles={selectedFiles2}
+              onChange={handleFileChangeMultiple2}
+              multiple
+              preview
+            />
             <div className="ltr:text-left rtl:text-right">
-              <button className="btn btn-primary text-center" onClick={custadd}>Submit</button>
+              <button className="btn btn-primary text-center" onClick={custadd}>
+                Submit
+              </button>
             </div>
           </form>
         </div>
@@ -120,11 +115,6 @@ const billsadd = () => {
       </Card>
     </div>
   );
-  
 };
 
-
 export default billsadd;
-
-
-

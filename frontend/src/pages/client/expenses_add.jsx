@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@/components/ui/Card";
 import Textinput from "@/components/ui/Textinput";
 import InputGroup from "@/components/ui/InputGroup";
@@ -6,53 +6,86 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import Select from "react-select";
+import Flatpickr from "react-flatpickr";
 import * as yup from "yup";
 import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
 const expensesadd = () => {
 
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
   const navigate = useNavigate();
 
-  const [cust , setUser] = useState()
-  const submit = (e) => {
-    const { name, value } = e.target;
-    setUser({...cust,[name]:value})
+  const [user, setUser] = useState({});
+  const [selectedOption, setSelectedOption] = useState({});
+  const [mode_of_payment, setMode] = useState({});
+  const customer = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/fetchvendor", {
+        method: "GET",
+        withCredentials: true,
+        header: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+      });
+      const user = res.data;
+      setUser(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    customer();
+  }, []);
+  //store firstname in cust array
+  const cust = [];
+  for (let i = 0; i < user.length; i++) {
+    cust.push({ value: user[i].company_name, label: user[i].company_name });
   }
+
+  const custmap = cust.map((company_name) => {
+    return company_name.company_name;
+  });
+
+  //fill selected customer info in the form
+  const fillcust = (e) => {
+    for (let i = 0; i < user.length; i++) {
+      if (user[i].company_name === e.value) {
+        const selectedOption = user[i]; 
+        setSelectedOption(selectedOption);
+        document.getElementById("cust_name").value = selectedOption.name;
+      }
+    }
+  };
+  const handlechange = (e) => {
+    setMode(e.value);
+  };
 
   const custadd = async (e) => {
     e.preventDefault();
-    
-    const { vendor_name, customer_name, expenses, date, mode_of_payment, amount} = cust; //form inputs
+    const vendor_name = selectedOption.company_name;
+    const customer_name = selectedOption.name;
+    const expenses = document.getElementById("expenses").value;
+    const date = document.getElementById("default-picker").value;
+    const item = document.getElementById("Item").value;
     try {
-      const res = await axios.post("http://localhost:5000/customer_add", {
-        vendor_name,
-        customer_name,
-        expenses,
-        date,
-        mode_of_payment,
-        amount
-      },{ withCredentials: true });
+      const res = await axios.post(
+        "http://localhost:5000/expenses_add",
+        {
+          date,
+          expenses,
+          vendor_name,
+          mode_of_payment,
+          customer_name,
+          item,
+        },
+        { withCredentials: true }
+      );
       console.log(res);
       if (res) {
         alert(res.data.message);
-        setTimeout(() => {
-          navigate("/expenses"); //redirect to table
-        }, 1500);
+        navigate("/expensestable");
       } else {
         alert(res.data.error);
       }
@@ -61,65 +94,81 @@ const expensesadd = () => {
     }
   };
 
+  const Modeofpay = [
+    { value: "Cash", label: "Cash" },
+    { value: "Cheque", label: "Cheque" },
+    { value: "Credit Card", label: "Credit Card" },
+  ];
+  const styles = {
+    option: (provided, state) => ({
+      ...provided,
+      fontSize: "14px",
+    }),
+  };
+  const [picker, setPicker] = useState(new Date());
+
   return (
     <div>
       <Card title="Add Expenses"> 
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
+            <div>
+                <label htmlFor=" hh" className="form-label ">
+                  Vendor Name
+                </label>
+                <Select
+                  onChange={fillcust}
+                  className="react-select"
+                  classNamePrefix="select"
+                  defaultValue="select"
+                  options={cust}
+                  styles={styles}
+                  id="vendor"
+                />
+              </div>
               <Textinput
-                name = "vendor_name"
-                label="Vendor Name"
-                register={register}
-                onChange={submit}
-                isMask
+                label="Customer Name"
+                id = "cust_name"
                 placeholder="Ex: viral gautami, ... etc."
               />
+              
               <Textinput
-                name = "customer_name"
-                label="Customer Name"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: anjan patel, etc."
-              />
-              <Textinput
-                name = "expenses"
                 label="Expenses"
-                register={register}
-                onChange={submit}
+                id = "expenses"
                 isMask
                 placeholder="Ex: $9000,... etc"
               />
-              <Textinput
-                name = "date"
-                label="Date"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: $5000,.. etc."
-              />
+              <div>
+                <label htmlFor="default-picker" className=" form-label">
+                  Date
+                </label>
+                <Flatpickr
+                  className="form-control py-2"
+                  value={picker}
+                  onChange={(date) => setPicker(date)}
+                  id="default-picker"
+                />
+              </div>
 
+              <div>
+                <label htmlFor=" hh" className="form-label ">
+                  Mode of Payment
+                </label>
+                <Select
+                  className="react-select"
+                  classNamePrefix="select"
+                  options={Modeofpay}
+                  styles={styles}
+                  onChange={handlechange}
+                  id="mode_of_payment"
+                />
+              </div>
               <Textinput
-                name = "mode_of_payment"
-                label="Mode Payment"
-                register={register}
-                onChange={submit}
-                placeholder="Ex: online, offline, etc."
-                isMask
+                label="Item"
+                id = "Item"
+                placeholder="Ex: SaaS,... etc"
               />
-              <Textinput
-                name = "amount"
-                label="Amount"
-                register={register}
-                onChange={submit}
-                placeholder="Ex: $6000,... etc."
-                isMask
-              />
-            </div>
-            <div className="grid xl:grid-cols-1 grid-cols-1 gap-5">
-              <Textarea label="Address" id="pn4" name="address" placeholder="Address" register={register}
-                onChange={submit} />
             </div>
             <div className="ltr:text-left rtl:text-right">
               <button className="btn btn-primary text-center" onClick={custadd}>Submit</button>

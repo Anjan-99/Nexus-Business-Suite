@@ -29,14 +29,14 @@ const Expenses = ({ title = "Expenses Table" }) => {
       Header: "Date",
       accessor: "date",
       Cell: (row) => {
-        return <span>#{row?.cell?.value}</span>; //rows data
+        return <span>{row?.cell?.value}</span>; //rows data
       },
     },
     {
       Header: "Expenses",
       accessor: "expenses",
       Cell: (row) => {
-        return <span>#{row?.cell?.value}</span>;
+        return <span>{row?.cell?.value}</span>;
       },
     },
     {
@@ -44,7 +44,7 @@ const Expenses = ({ title = "Expenses Table" }) => {
       accessor: "vendor_name",
       Cell: (row) => {
         return <span>{row?.cell?.value}</span>;
-      },
+      },  
     },
     {
       Header: "Mode of Payment",
@@ -61,34 +61,10 @@ const Expenses = ({ title = "Expenses Table" }) => {
       },
     },
     {
-      Header: "Status",
-      accessor: "status",
+      Header: "Item",
+      accessor: "item",
       Cell: (row) => {
-        return (
-          <span className="block w-full">
-            <span
-              className={` inline-block px-3 min-w-[90px] text-center mx-auto py-1 rounded-[999px] bg-opacity-25 ${
-                row?.cell?.value === "paid"
-                  ? "text-success-500 bg-success-500"
-                  : ""
-              } 
-              ${
-                row?.cell?.value === "due"
-                  ? "text-warning-500 bg-warning-500"
-                  : ""
-              }
-              ${
-                row?.cell?.value === "cancled"
-                  ? "text-danger-500 bg-danger-500"
-                  : ""
-              }
-              
-               `}
-            >
-              {row?.cell?.value}
-            </span>
-          </span>
-        );
+        return <span>{row?.cell?.value}</span>;
       },
     },
     {

@@ -71,9 +71,8 @@ const paymentadd = () => {
     const date = document.getElementById("default-picker").value;
     const amount = document.getElementById("amount").value;
     const unused_amount = document.getElementById("unamount").value;
-    const updateamt = unused_amount - amount;
-    console.log(mode_of_payment);
     try {
+      e.preventDefault();
       const res = await axios.post(
         "http://localhost:5000/payment_add",
         {
