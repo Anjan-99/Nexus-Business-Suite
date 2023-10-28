@@ -186,7 +186,6 @@ const Expenses = ({ title = "Expenses Table" }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:5000/fetchexpenses");
-        console.log(response.data);
         setData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -202,7 +201,6 @@ const Expenses = ({ title = "Expenses Table" }) => {
   const columns = useMemo(() => COLUMNS, []);
   const tableData = useMemo(() => data, [data]);
   // ... (Rest of the code remains unchanged)
-  console.log(tableData);
   const tableInstance = useTable(
     {
       columns,

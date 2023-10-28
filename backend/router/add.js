@@ -68,7 +68,7 @@ router.post("/payment_add", async (req, res) => {
 //vendor add to database
 router.post("/vendor_add", async (req, res) => {
     const { name, company_name, email, payable_amount, unused_credit} = req.body;
-    const id  = Math.floor(Math.random() * 10000) + 1;
+    const id  = Math.floor(Math.random() * 1000) + 1;
     try { 
         const vendor_table = new Vendor_table({ id, name, company_name, email, payable_amount, unused_credit});
         const vendor_tabledetails =  await vendor_table.save();
