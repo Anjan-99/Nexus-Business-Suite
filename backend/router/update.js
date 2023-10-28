@@ -14,12 +14,11 @@ const jwt = require("jsonwebtoken");
 
 router.put("/invoicerecupdate/:id", async (req, res) => {
   const { id } = req.params;
-  const {status, updateamt } = req.body;
+  const {status } = req.body;
   console.log(status);
   try {
     const invoice_table = await Invoice_table.findByIdAndUpdate(id, {
       status: status,
-      total_amount: updateamt,
     });
     if (invoice_table) {
       res.status(200).json({ message: "successfully" });
@@ -30,5 +29,7 @@ router.put("/invoicerecupdate/:id", async (req, res) => {
     console.log(err);
   }
 });
+
+
 
 module.exports = router;

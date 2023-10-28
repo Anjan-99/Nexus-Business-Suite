@@ -102,10 +102,10 @@ const InvoiceAddPage = () => {
       );
       if (res) {
         alert(res.data.message);
-        navigate("/invoice_table");
+        navigate("/invoicetable");
       } else {
         alert(res.data.error);
-        navigate("/invoice_table");
+        navigate("/invoicetable");
       }
     } catch (error) {
       console.log(error);

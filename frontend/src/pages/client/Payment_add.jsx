@@ -87,20 +87,17 @@ const paymentadd = () => {
         { withCredentials: true }
       );
       const invoiceres = await axios.put (
-        `http://localhost:5000//invoicerecupdate/${id}`,
+        `http://localhost:5000/invoicerecupdate/${id}`,
         {
           id,
-          invoice_number,
-          updateamt,
+          status: "paid",
         },
         { withCredentials: false }
       );
       if (res) {
         if (invoiceres) {
           alert(res.data.message);
-          setTimeout(() => {
-            navigate("/payment_table"); //redirect to table
-          }, 1500);
+          navigate("/paymenttable"); 
         }
       } else {
         alert(res.data.error);
