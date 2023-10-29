@@ -1,10 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Icon from "@/components/ui/Icon";
 import Card from "@/components/ui/Card";
+import axios from "axios";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  useParams,
+} from "react-router-dom";
 
-const profile = () => {
-  
+const custveiw = () => {
+  const { id } = useParams();
+  const [user, setUser] = useState({});
+  const customer = async () => {
+    try {
+      const res = await axios.get(
+        `http://localhost:5000/customer_find/${id}`,
+        {
+          method: "GET",
+          withCredentials: true,
+          header: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        },
+
+        { withCredentials: false }
+      );
+      const user = res.data;
+      console.log(user);
+      setUser(res.data);
+      console.log(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    customer();
+  }, []);
   return (
     <div>
       <div className="space-y-5 profile-page">
@@ -24,7 +58,7 @@ const profile = () => {
                       href="mailto:someone@example.com"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      Anjan
+                      {user.firstname} {user.lastname}
                     </a>
                   </div>
                 </li>
@@ -40,7 +74,7 @@ const profile = () => {
                       href="mailto:someone@example.com"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      Titanslab
+                        {user.companyname}
                     </a>
                   </div>
                 </li>
@@ -56,7 +90,7 @@ const profile = () => {
                       href="mailto:someone@example.com"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      It
+                        {user.businessType}
                     </a>
                   </div>
                 </li>
@@ -72,7 +106,7 @@ const profile = () => {
                       href="mailto:someone@example.com"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      info-500@dashcode.com
+                        {user.email}
                     </a>
                   </div>
                 </li>
@@ -89,7 +123,7 @@ const profile = () => {
                       href="tel:0189749676767"
                       className="text-base text-slate-600 dark:text-slate-50"
                     >
-                      +1-202-555-0151
+                        {user.phone}
                     </a>
                   </div>
                 </li>
@@ -103,7 +137,7 @@ const profile = () => {
                       LOCATION
                     </div>
                     <div className="text-base text-slate-600 dark:text-slate-50">
-                      Home# 320/N, Road# 71/B, Mohakhali, Dhaka-1207, Bangladesh
+                        {user.address}
                     </div>
                   </div>
                 </li>
@@ -116,4 +150,4 @@ const profile = () => {
   );
 };
 
-export default profile;
+export default custveiw;

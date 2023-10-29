@@ -1,6 +1,6 @@
 // Fetch user data from MongoDB using the provided API
 import React, { useState, useEffect, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import { advancedTable } from "../../../constant/table-data";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
@@ -14,6 +14,7 @@ import {
 } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 import axios from "axios";
+import custveiw from "../cust_view";
 
 const FetchUserData = ({ title = "All Customers" }) => {
   const [updateRows, setUpdateRows] = useState(0);
@@ -118,6 +119,12 @@ const FetchUserData = ({ title = "All Customers" }) => {
             console.log("catch Error", error);
           }
         };
+        const id = row?.cell?.value;
+        const custveiw = async (e) => {
+          e.preventDefault();
+          navigate(`/customerview/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -126,7 +133,7 @@ const FetchUserData = ({ title = "All Customers" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={custveiw} type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>

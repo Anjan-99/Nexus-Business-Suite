@@ -26,12 +26,7 @@ const Vendoradd = lazy(() => import("./pages/client/vendor_add"));
 const Expenseadd = lazy(() => import("./pages/client/expenses_add"));
 const Billadd = lazy(() => import("./pages/client/bills_add"));
 const Employeeadd = lazy(() => import("./pages/client/employee_add"));
-
-
-
-
-
-
+const Customerview = lazy(() => import("./pages/client/cust_view"));
 
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
@@ -140,7 +135,7 @@ const CalenderPage = lazy(() => import("./pages/app/calender"));
 import Loading from "@/components/Loading";
 function App() {
   return (
-    <main className="App  relative">
+    <main className="App relative">
       <Routes>
         <Route
           path="/"
@@ -262,6 +257,8 @@ function App() {
           <Route path="expenseadd" element={<Expenseadd />} />
           <Route path="billadd" element={<Billadd />} />
           <Route path="employeeadd" element={<Employeeadd />} />
+
+          <Route path="customerview/:id"  element={<Customerview />} />
 
 
 

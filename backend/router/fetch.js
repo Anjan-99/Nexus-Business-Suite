@@ -144,12 +144,26 @@ router.get("/fetchcustomer", async (req, res) => {
     }
 });
 
+//fetch customer by id 
+router.get("/customer_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const customer_tabledetails =  await Customertable.findById(id);
+        if (customer_tabledetails){
+            res.json(customer_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
 //employee fetch
 router.get("/fetchemployee", async (req, res) => {
     try {
         const userFetch = await Employee_table.find();
         res.json(userFetch);
-        
     } catch (err){
         console.log(err);
     }
