@@ -11,6 +11,7 @@ import * as yup from "yup";
 import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
+
 const billsadd = () => {
   const [selectedFiles2, setSelectedFiles2] = useState([]);
   const navigate = useNavigate();
@@ -66,8 +67,7 @@ const billsadd = () => {
               <Textinput
                 label="Vendor Name"
                 onChange={submit}
-                isMask
-                placeholder="Ex: viral gautami, ... etc."
+                placeholder="Ex: viral gautami, etc..."
               />
               <Textinput
                 label="Bill"

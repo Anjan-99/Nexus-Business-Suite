@@ -49,10 +49,6 @@ export const menuItems = [
         childtitle: "Bills",
         childlink: "bills",
       },
-      {
-        childtitle: "Vendor creidts",
-        childlink: "vendorcredit_table",
-      }
     ],
   },
   {
