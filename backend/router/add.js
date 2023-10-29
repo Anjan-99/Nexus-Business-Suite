@@ -9,6 +9,7 @@ const Vendor_table = require("../models/vendor_table.js");
 const Expenses_table = require("../models/expenses_table.js");
 const Bills_table = require("../models/bills_table.js");
 const Vendorcredit_table = require("../models/vendorcredit_table.js");
+const Employee_table = require("../models/employee_table.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -102,7 +103,7 @@ router.post("/expenses_add", async (req, res) => {
 //add bills table to database
 router.post("/bills_add", async (req, res) => {
     const { bill, vendor_name, due_date, bill_date, amount} = req.body;
-    const id  = Math.floor(Math.random() * 10000) + 1;
+    const id  = Math.floor(Math.random() * 1000) + 1;
     const status = "paid";
     try { 
         const bills_table = new Bills_table({ id, bill, vendor_name, due_date, bill_date, amount,status});
@@ -120,12 +121,29 @@ router.post("/bills_add", async (req, res) => {
 //vendor credit add to database
 router.post("/vendorcredit_add", async (req, res) => {
     const { name, company_name, email, payment_amount, unused_credit} = req.body;
-    const id  = Math.floor(Math.random() * 10000) + 1;
+    const id  = Math.floor(Math.random() * 1000) + 1;
     const status = "paid";
     try { 
         const vendorcredit_table = new Vendorcredit_table({ id, name, company_name, email, payment_amount, unused_credit,status});
         const vendorcredit_tabledetails =  await vendorcredit_table.save();
         if (vendorcredit_tabledetails){
+            res.status(201).json({ message: "successfully" });
+        } else {
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//add employee to database
+router.post("/employee_add", async (req, res) => {
+    const { firstname,lastname,position,email,phone,salary,} = req.body;
+    const employeeid  = Math.floor(Math.random() * 1000) + 1;
+    try { 
+        const employee_table = new Employee_table({ employeeid, firstname, lastname, email, phone, position});
+        const employee_tabledetails =  await employee_table.save();
+        if (employee_tabledetails){
             res.status(201).json({ message: "successfully" });
         } else {
             res.status(400).json({ message: "unsuccessfully" });

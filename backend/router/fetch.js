@@ -10,6 +10,7 @@ const Expenses_table = require("../models/expenses_table.js");
 const Bills_table = require("../models/bills_table.js");
 const Customertable = require("../models/customer_table.js");
 const vendorcredit_table = require("../models/vendorcredit_table.js");
+const Employee_table = require("../models/employee_table.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
@@ -142,5 +143,18 @@ router.get("/fetchcustomer", async (req, res) => {
         console.log(err);
     }
 });
+
+//employee fetch
+router.get("/fetchemployee", async (req, res) => {
+    try {
+        const userFetch = await Employee_table.find();
+        res.json(userFetch);
+        
+    } catch (err){
+        console.log(err);
+    }
+});
+
+
 
 module.exports = router;

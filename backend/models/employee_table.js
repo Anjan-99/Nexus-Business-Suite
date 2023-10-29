@@ -20,6 +20,10 @@ const employeetableSchema = new mongoose.Schema ({
         type: String,
         required: true
     },
+    phone: {
+        type: String,
+        required: true,
+    },
     position: {
         type: String,
         required: true,

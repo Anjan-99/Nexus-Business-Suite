@@ -195,8 +195,7 @@ const FetchUserData = ({ title = "All Employees" }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/fetchcustomer");
-        console.log(response.data);
+        const response = await axios.get("http://localhost:5000/fetchemployee");
         setData(response.data);
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -211,8 +210,6 @@ const FetchUserData = ({ title = "All Employees" }) => {
   // Memoized columns and data
   const columns = useMemo(() => COLUMNS, []);
   const tableData = useMemo(() => data, [data]);
-  // ... (Rest of the code remains unchanged)
-  console.log(tableData);
   const tableInstance = useTable(
     {
       columns,
