@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@/components/ui/Card";
 import Textinput from "@/components/ui/Textinput";
 import InputGroup from "@/components/ui/InputGroup";
@@ -6,54 +6,76 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as yup from "yup";
 import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
-const customeradd = () => {
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
+const custedit = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  const [cust , setUser] = useState()
-  const submit = (e) => {
-    const { name, value } = e.target;
-    setUser({...cust,[name]:value})
-  }
-
-  const custadd = async (e) => {
-    e.preventDefault();
-    
-    const { firstname, lastname,companyname, businessType, email, phone, address} = cust; //form inputs
+  const [user, setUser] = useState({});
+  const getdata = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/customer_add", {
-        firstname,
-        lastname,
-        companyname,
-        businessType,
-        email,
-        phone,
-        address
-      },{ withCredentials: true });
+      const res = await axios.get(
+        `http://localhost:5000/customer_find/${id}`,
+        {
+          method: "GET",
+          withCredentials: true,
+          header: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        },
+        { withCredentials: true }
+      );
+      const user = res.data;
+      setUser(user);
+      document.getElementById("firstname").value = user.firstname;
+      document.getElementById("lastname").value = user.lastname;
+      document.getElementById("companyname").value = user.companyname;
+      document.getElementById("businessType").value = user.businessType;
+      document.getElementById("email").value = user.email;
+      document.getElementById("phoneNumber").value = user.phone;
+      document.getElementById("Address").value = user.address;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  const custedit = async (e) => {
+    e.preventDefault(); //form inputs
+    const id = user._id;
+    const firstname = document.getElementById("firstname").value;
+    const lastname = document.getElementById("lastname").value;
+    const companyname = document.getElementById("companyname").value;
+    const businessType = document.getElementById("businessType").value;
+    const email = document.getElementById("email").value;
+    const phone = document.getElementById("phoneNumber").value;
+    const address = document.getElementById("Address").value;
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/customerupdate",
+        {
+          id,
+          firstname,
+          lastname,
+          companyname,
+          businessType,
+          email,
+          phone,
+          address,
+        },
+        { withCredentials: true }
+      );
       console.log(res);
       if (res) {
         alert(res.data.message);
-        setTimeout(() => {
-          navigate("/customertable"); //redirect to table
-        }, 1500);
+        navigate("/customertable");
       } else {
         alert(res.data.error);
       }
@@ -64,70 +86,50 @@ const customeradd = () => {
 
   return (
     <div>
-      <Card title="Add Customer"> 
+      <Card title="Edit Customer">
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
               <Textinput
-                name = "firstname"
                 label="First Name"
-                register={register}
-                onChange={submit}
-                
                 placeholder="Ex: John, Smith, etc."
+                id="firstname"
               />
               <Textinput
-                name = "lastname"
                 label="Last Name"
-                register={register}
-                onChange={submit}
-                
                 placeholder="Ex: Patel, Shah, etc."
+                id="lastname"
               />
               <Textinput
-                name = "companyname"
                 label="Company Name"
-                register={register}
-                onChange={submit}
-                
+                id="companyname"
                 placeholder="Ex: ABC Pvt Ltd"
               />
               <Textinput
-                name = "businessType"
                 label="Business Type"
-                register={register}
-                onChange={submit}
-                
                 placeholder="Ex: Retailer, Wholesaler, etc."
+                id="businessType"
               />
 
-              <Textinput
-                name = "email"
-                label="Email"
-                register={register}
-                onChange={submit}
-                id="date"
-                placeholder="xyz@gmail.com"
-                
-              />
+              <Textinput label="Email" id="email" placeholder="xyz@gmail.com" />
               <InputGroup
-                name = "phone"
                 label="Phone Number"
                 prepend="IN (+91)"
                 placeholder="Phone Number"
-                register={register}
-                onChange={submit}
                 id="phoneNumber"
                 options={{ phone: true, phoneRegionCode: "US" }}
-                isMask
               />
             </div>
             <div className="grid xl:grid-cols-1 grid-cols-1 gap-5">
-              <Textarea label="Address" id="pn4" name="address" placeholder="Address" register={register}
-                onChange={submit} />
+              <Textarea label="Address" id="Address" placeholder="Address" />
             </div>
             <div className="ltr:text-left rtl:text-right">
-              <button className="btn btn-primary text-center" onClick={custadd}>Submit</button>
+              <button
+                className="btn btn-primary text-center"
+                onClick={custedit}
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
@@ -135,8 +137,6 @@ const customeradd = () => {
       </Card>
     </div>
   );
-  
 };
 
-
-export default customeradd;
+export default custedit;

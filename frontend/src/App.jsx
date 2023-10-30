@@ -28,6 +28,8 @@ const Billadd = lazy(() => import("./pages/client/bills_add"));
 const Employeeadd = lazy(() => import("./pages/client/employee_add"));
 const Customerview = lazy(() => import("./pages/client/cust_view"));
 
+const Customeredit = lazy(() => import("./pages/client/cust_edit"));
+
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
 const CrmPage = lazy(() => import("./pages/dashboard/crm"));
@@ -259,6 +261,8 @@ function App() {
           <Route path="employeeadd" element={<Employeeadd />} />
 
           <Route path="customerview/:id"  element={<Customerview />} />
+
+          <Route path="customeredit/:id"  element={<Customeredit />} />
 
 
 

@@ -107,7 +107,6 @@ const FetchUserData = ({ title = "All Employees" }) => {
       Cell: (row) => {
         const deleterow = async (e) => {
           e.preventDefault();
-
           try {
             const id = row?.cell?.value;
             const res = await axios.delete(

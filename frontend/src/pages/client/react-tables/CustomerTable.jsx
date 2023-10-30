@@ -124,6 +124,10 @@ const FetchUserData = ({ title = "All Customers" }) => {
           e.preventDefault();
           navigate(`/customerview/${id}`);
         };
+        const custedit = async (e) => {
+          e.preventDefault();
+          navigate(`/customeredit/${id}`);
+        };
 
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
@@ -142,8 +146,9 @@ const FetchUserData = ({ title = "All Customers" }) => {
               placement="top"
               arrow
               animation="shift-away"
+              
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={custedit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

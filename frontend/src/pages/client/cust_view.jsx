@@ -29,9 +29,7 @@ const custveiw = () => {
         { withCredentials: false }
       );
       const user = res.data;
-      console.log(user);
-      setUser(res.data);
-      console.log(user);
+      setUser(user);
     } catch (err) {
       console.log(err);
     }
