@@ -43,16 +43,10 @@ const Client = () => {
         },
       });
       const user = res.data;
-      setTotal(user);
+      setUser(user);
     } catch (err) {
       console.log(err);
     }
-  };
-
-  useEffect(() => {
-    auth();
-  }, []);
-  const data = async () => {
     try {
       const res = await axios.get("http://localhost:5000/fetchinvoiceamount", {
         method: "GET",
@@ -68,9 +62,9 @@ const Client = () => {
       console.log(err);
     }
   };
-  
+
   useEffect(() => {
-    data();
+    auth();
   }, []);
   return (
     <div>
