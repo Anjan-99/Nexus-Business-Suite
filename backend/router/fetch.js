@@ -159,6 +159,111 @@ router.get("/customer_find/:id", async (req, res) => {
     }
 });
 
+//fetch invoice by id
+router.get("/invoice_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const invoice_tabledetails =  await Invoice_table.findById(id);
+        if (invoice_tabledetails){
+            res.json(invoice_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//fetch quote by id
+router.get("/quote_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const quote_tabledetails =  await Quotes_table.findById(id);
+        if (quote_tabledetails){
+            res.json(quote_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//fetch payment by id
+router.get("/payment_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const payment_tabledetails =  await Payment_table.findById(id);
+        if (payment_tabledetails){
+            res.json(payment_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//fetch employee by id
+router.get("/employee_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const employee_tabledetails =  await Employee_table.findById(id);
+        if (employee_tabledetails){
+            res.json(employee_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//fetch vendor by id
+router.get("/vendor_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const vendor_tabledetails =  await Vendor_table.findById(id);
+        if (vendor_tabledetails){
+            res.json(vendor_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//fetch expenses by id
+router.get("/expenses_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const expenses_tabledetails =  await Expenses_table.findById(id);
+        if (expenses_tabledetails){
+            res.json(expenses_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
+//fetch bill by id
+router.get("/bill_find/:id", async (req, res) => {
+    const { id } = req.params;
+    try { 
+        const bill_tabledetails =  await Bills_table.findById(id);
+        if (bill_tabledetails){
+            res.json(bill_tabledetails);
+        } else {    
+            res.status(400).json({ message: "unsuccessfully" });
+        }
+    } catch (err){
+        console.log(err);
+    }
+});
+
 //employee fetch
 router.get("/fetchemployee", async (req, res) => {
     try {

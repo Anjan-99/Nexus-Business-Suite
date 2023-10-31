@@ -27,6 +27,13 @@ const Expenseadd = lazy(() => import("./pages/client/expenses_add"));
 const Billadd = lazy(() => import("./pages/client/bills_add"));
 const Employeeadd = lazy(() => import("./pages/client/employee_add"));
 const Customerview = lazy(() => import("./pages/client/cust_view"));
+const Invoiceview = lazy(() => import("./pages/client/invoice_view"));
+const Quoteview = lazy(() => import("./pages/client/quote_view"));
+const Paymentview = lazy(() => import("./pages/client/payment_view"));
+const Employeeview = lazy(() => import("./pages/client/emp_view"));
+const Vendorview = lazy(() => import("./pages/client/vendor_view"));
+const Expensesview = lazy(() => import("./pages/client/expenses_view"));
+const Billsview = lazy(() => import("./pages/client/bills_view"));
 
 const Customeredit = lazy(() => import("./pages/client/cust_edit"));
 
@@ -261,6 +268,16 @@ function App() {
           <Route path="employeeadd" element={<Employeeadd />} />
 
           <Route path="customerview/:id"  element={<Customerview />} />
+          <Route path="invoiceview/:id"  element={<Invoiceview />} />
+          <Route path="quoteview/:id"  element={<Quoteview />} />
+          <Route path="paymentview/:id"  element={<Paymentview />} />
+          <Route path="employeeview/:id"  element={<Employeeview />} />
+          <Route path="vendorview/:id"  element={<Vendorview />} />
+          <Route path="expensesview/:id"  element={<Expensesview />} />
+          <Route path="billsview/:id"  element={<Billsview />} />
+
+
+
 
           <Route path="customeredit/:id"  element={<Customeredit />} />
 

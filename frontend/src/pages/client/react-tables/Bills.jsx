@@ -117,6 +117,14 @@ const Bills = ({ title = "Bill Table" }) => {
             console.log("catch Error", error);
           }
         };
+
+        const id = row?.cell?.value;
+        const navigate = useNavigate();
+        const billsveiw = async (e) => {
+          e.preventDefault();
+          navigate(`/billsview/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -125,7 +133,7 @@ const Bills = ({ title = "Bill Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={billsveiw} type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>

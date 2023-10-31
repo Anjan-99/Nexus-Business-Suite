@@ -5,6 +5,8 @@ import { advancedTable } from "../../../constant/table-data";
 import Card from "@/components/ui/Card";
 import Icon from "@/components/ui/Icon";
 import Tooltip from "@/components/ui/Tooltip";
+import invoiceview from "../invoice_view";
+
 import {
   useTable,
   useRowSelect,
@@ -122,6 +124,12 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
           }
         };
 
+        const id = row?.cell?.value;
+        const invoiceview = async (e) => {
+          e.preventDefault();
+          navigate(`/invoiceview/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -130,7 +138,7 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={invoiceview} type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>
