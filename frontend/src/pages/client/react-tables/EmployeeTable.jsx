@@ -126,6 +126,12 @@ const FetchUserData = ({ title = "All Employees" }) => {
             console.log("catch Error", error);
           }
         };
+        const id = row?.cell?.value;
+        const navigate = useNavigate();
+        const empveiw = async (e) => {
+          e.preventDefault();
+          navigate(`/employeeview/${id}`);
+        };
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -134,7 +140,7 @@ const FetchUserData = ({ title = "All Employees" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={empveiw} type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>

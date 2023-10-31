@@ -93,6 +93,14 @@ const Expenses = ({ title = "Expenses Table" }) => {
             console.log("catch Error", error);
           }
         };
+
+        const id = row?.cell?.value;
+        const navigate = useNavigate();
+        const expensesveiw = async (e) => {
+          e.preventDefault();
+          navigate(`/expensesview/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -101,7 +109,7 @@ const Expenses = ({ title = "Expenses Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+             <button className="action-btn" onClick={expensesveiw} type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>

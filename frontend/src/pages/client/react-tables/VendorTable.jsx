@@ -86,6 +86,15 @@ const VendorTable = ({ title = "Vendor Table" }) => {
             console.log("catch Error", error);
           }
         };
+
+        const id = row?.cell?.value;
+        const navigate = useNavigate();
+        const vendorview = async (e) => {
+          e.preventDefault();
+          navigate(`/vendorview/${id}`);
+        };
+
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -94,7 +103,7 @@ const VendorTable = ({ title = "Vendor Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+             <button className="action-btn" onClick={vendorview} type="button">
                 <Icon icon="heroicons:eye" />
               </button>
             </Tooltip>
