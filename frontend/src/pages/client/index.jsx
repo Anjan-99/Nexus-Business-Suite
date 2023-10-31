@@ -10,6 +10,9 @@ import CompanyTable from "@/components/partials/Table/company-table";
 import Customertable from "./customer_table";
 import RecentActivity from "@/components/partials/widget/recent-activity";
 import MostSales from "../../components/partials/widget/most-sales";
+import ProfitChart from "../../components/partials/widget/chart/profit-chart";
+import OrderChart from "../../components/partials/widget/chart/order-chart";
+import EarningChart from "../../components/partials/widget/chart/earning-chart";
 import RadarChart from "../../components/partials/widget/chart/radar-chart";
 import HomeBredCurbs from "./HomeBredCurbs";
 import ProfileImage from "@/assets/images/users/user.webp";
@@ -20,6 +23,7 @@ import axios from "axios";
 const Client = () => {
   const [filterMap, setFilterMap] = useState("usa");
   const [user, setUser] = useState({});
+  const [total , setTotal] = useState({});
   function getDate() {
     const today = new Date();
     const month = today.getMonth() + 1;
@@ -39,7 +43,7 @@ const Client = () => {
         },
       });
       const user = res.data;
-      setUser(user);
+      setTotal(user);
     } catch (err) {
       console.log(err);
     }
@@ -47,6 +51,26 @@ const Client = () => {
 
   useEffect(() => {
     auth();
+  }, []);
+  const data = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/fetchinvoiceamount", {
+        method: "GET",
+        withCredentials: true,
+        header: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+      });
+      const user1 = res.data;
+      setTotal(user1);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
+  useEffect(() => {
+    data();
   }, []);
   return (
     <div>
@@ -67,7 +91,11 @@ const Client = () => {
               <p className="text-sm dark:text-slate-300">Welcome to Nexus</p>
             </div>
           </div>
-          <GroupChart5 />
+          <GroupChart5 
+          cashFlowCount={total.cashflow}
+          expensesCount={total.expense}
+          revenueCount={total.cashflow- total.expense}
+          />
         </div>
       </Card>
       <br />
@@ -79,16 +107,22 @@ const Client = () => {
         </div>
       </div>
       <div className="grid grid-cols-12 gap-5">
-        <div className="lg:col-span-8 col-span-12">
+        <div className="lg:col-span-7 col-span-12">
           <Card>
             <div className="legend-ring">
               <RevenueBarChart />
             </div>
           </Card>
         </div>
-        <div className="lg:col-span-4 col-span-12">
-          <Card title="Overview" headerslot={<SelectMonth />}>
-            <RadialsChart />
+        <div className="2xl:col-span-4 lg:col-span-5 col-span-12">
+          <Card title="Statistic" headerslot={<SelectMonth />}>
+            <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
+              <OrderChart />
+              <ProfitChart />
+              <div className="md:col-span-2">
+                <EarningChart />
+              </div>
+            </div>
           </Card>
         </div>
         <div className="lg:col-span-12 col-span-12">

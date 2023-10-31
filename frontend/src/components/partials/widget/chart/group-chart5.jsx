@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { colors } from "@/constant/data";
 import Chart from "react-apexcharts";
+//fetch cash flow data from backend
+
 const columnCharthome2 = {
   series: [
     {
@@ -211,36 +213,38 @@ const columnCharthome4 = {
     },
   },
 };
-const statistics = [
+const statistics = (cashFlowCount, expensesCount, revenueCount) => [
   {
     name: columnCharthome3,
-    title: "Current balance",
-    count: "$34,564",
+    title: "Cash Flow",
+    count: `$${cashFlowCount}`,
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-info-500",
     icon: "heroicons:shopping-cart",
   },
   {
     name: columnCharthome4,
-    title: "Revenue",
-    count: "$3,564",
+    title: "Expenses",
+    count: `$${expensesCount}`,
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-warning-500",
     icon: "heroicons:cube",
   },
   {
     name: columnCharthome2,
-    title: "Expenses",
-    count: "$3,564",
+    title: "Revenue",
+    count: `$${revenueCount}`,
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-[#5743BE]",
     icon: "heroicons:arrow-trending-up-solid",
   },
 ];
-const GroupChart5 = () => {
+const GroupChart5 = (props) => {
+  const { cashFlowCount, expensesCount, revenueCount } = props;
+  const updatedStatistics = statistics(cashFlowCount, expensesCount, revenueCount);
   return (
     <>
-      {statistics.map((item, i) => (
+      {updatedStatistics.map((item, i) => (
         <div className="bg-slate-50 dark:bg-slate-900 rounded p-4" key={i}>
           <div className="text-slate-600 dark:text-slate-400 text-sm mb-1 font-medium">
             {item.title}

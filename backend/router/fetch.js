@@ -169,6 +169,26 @@ router.get("/fetchemployee", async (req, res) => {
     }
 });
 
+//fetch invoice and get total amount of all invoices
+router.get("/fetchinvoiceamount", async (req, res) => {
+    try {
+        const userFetch = await Invoice_table.find();
+        //its doing concate i want to add all the total_amount
+        const total = 0;
+        const cashflow = userFetch.reduce((total, Invoice_table) => total + Number(Invoice_table.total_amount), 0);
+        //total expense
+        const userFetch1 = await Expenses_table.find();
+        const expense = userFetch1.reduce((total, Expenses_table) => total + Number(Expenses_table.expenses), 0);
+        const data = {
+            cashflow,
+            expense
+        }
+        res.json(data);
+    } catch (err){
+        console.log(err);
+    }
+});
+
 
 
 module.exports = router;

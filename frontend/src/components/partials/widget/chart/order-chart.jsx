@@ -28,7 +28,7 @@ const OrderChart = ({
     },
     plotOptions: {
       bar: {
-        columnWidth: "60px",
+        columnWidth: "10px",
         barHeight: "100%",
       },
     },
@@ -85,9 +85,6 @@ const OrderChart = ({
       <div className="font-normal text-xs text-slate-600 dark:text-slate-300">
         <span className="text-warning-500">-60% </span>
         From last Week
-      </div>
-      <div className="mt-4">
-        <Chart type="bar" height="44" options={options} series={series} />
       </div>
     </div>
   );
