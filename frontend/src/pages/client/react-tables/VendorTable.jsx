@@ -94,6 +94,10 @@ const VendorTable = ({ title = "Vendor Table" }) => {
           navigate(`/vendorview/${id}`);
         };
 
+        const vendoredit = async (e) => {
+          e.preventDefault();
+          navigate(`/vendoredit/${id}`);
+        }; 
 
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
@@ -113,7 +117,7 @@ const VendorTable = ({ title = "Vendor Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={vendoredit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

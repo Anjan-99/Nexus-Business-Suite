@@ -125,6 +125,11 @@ const Bills = ({ title = "Bill Table" }) => {
           navigate(`/billsview/${id}`);
         };
 
+        const billsedit = async (e) => {
+          e.preventDefault();
+          navigate(`/billsedit/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -143,7 +148,7 @@ const Bills = ({ title = "Bill Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={billsedit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

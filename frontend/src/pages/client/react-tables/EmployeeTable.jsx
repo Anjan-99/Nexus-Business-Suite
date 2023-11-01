@@ -132,6 +132,12 @@ const FetchUserData = ({ title = "All Employees" }) => {
           e.preventDefault();
           navigate(`/employeeview/${id}`);
         };
+
+        const employeeedit = async (e) => {
+          e.preventDefault();
+          navigate(`/employeeedit/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -150,7 +156,7 @@ const FetchUserData = ({ title = "All Employees" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={employeeedit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

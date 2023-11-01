@@ -180,57 +180,6 @@ const invoiceveiw = () => {
                   </div>
                   <div className="flex-1">
                     <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
-                    RESIVER EMAIL
-                    </div>
-                    <a
-                      href="tel:0189749676767"
-                      className="text-base text-slate-600 dark:text-slate-50"
-                    >
-                        {user.res_email}
-                    </a>
-                  </div>
-                </li>
-
-                <li className="flex space-x-3 rtl:space-x-reverse">
-                  <div className="flex-none text-2xl text-slate-600 dark:text-slate-300">
-                    <Icon icon="heroicons:phone-arrow-up-right" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
-                    RESIVER PHONE
-                    </div>
-                    <a
-                      href="tel:0189749676767"
-                      className="text-base text-slate-600 dark:text-slate-50"
-                    >
-                        {user.res_phone}
-                    </a>
-                  </div>
-                </li>
-
-                <li className="flex space-x-3 rtl:space-x-reverse">
-                  <div className="flex-none text-2xl text-slate-600 dark:text-slate-300">
-                    <Icon icon="heroicons:phone-arrow-up-right" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
-                    RESIVER EMAIL
-                    </div>
-                    <a
-                      href="tel:0189749676767"
-                      className="text-base text-slate-600 dark:text-slate-50"
-                    >
-                        {user.res_email}
-                    </a>
-                  </div>
-                </li>
-
-                <li className="flex space-x-3 rtl:space-x-reverse">
-                  <div className="flex-none text-2xl text-slate-600 dark:text-slate-300">
-                    <Icon icon="heroicons:phone-arrow-up-right" />
-                  </div>
-                  <div className="flex-1">
-                    <div className="uppercase text-xs text-slate-500 dark:text-slate-300 mb-1 leading-[12px]">
                     RESIVER ADDRESS
                     </div>
                     <a

@@ -130,6 +130,11 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
           navigate(`/invoiceview/${id}`);
         };
 
+        const invoiceedit = async (e) => {
+          e.preventDefault();
+          navigate(`/invoiceedit/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -148,7 +153,7 @@ const InvoiceTable = ({ title = "Invoice Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={invoiceedit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

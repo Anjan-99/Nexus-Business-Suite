@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@/components/ui/Card";
 import Textinput from "@/components/ui/Textinput";
 import InputGroup from "@/components/ui/InputGroup";
@@ -6,52 +6,71 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as yup from "yup";
-import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
-const vendoradd = () => {
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
+const vendoredit = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  const [cust , setUser] = useState()
-  const submit = (e) => {
-    const { name, value } = e.target;
-    setUser({...cust,[name]:value})
-  }
-
-  const custadd = async (e) => {
-    e.preventDefault();
-    
-    const { customer_name, invoice_number, mode_of_payment, date, amount, unused_amount} = cust; //form inputs
+  const [user, setUser] = useState({});
+  const getdata = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/customer_add", {
-        name,
-        company_name,
-        email,
-        payable_amount,
-        unused_credit
-      },{ withCredentials: true });
+      const res = await axios.get(
+        `http://localhost:5000/vendor_find/${id}`,
+        {
+          method: "GET",
+          withCredentials: true,
+          header: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        },
+        { withCredentials: true }
+      );
+      const user = res.data;
+      setUser(user);
+      document.getElementById("name").value = user.name;
+      document.getElementById("company_name").value = user.company_name;
+      document.getElementById("email").value = user.email;
+      document.getElementById("payable_amount").value = user.payable_amount;
+      document.getElementById("unused_credit").value = user.unused_credit;
+      
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  const vendoredit = async (e) => {
+    e.preventDefault(); //form inputs
+    const id = user._id;
+    const name = document.getElementById("name").value;
+    const company_name = document.getElementById("company_name").value;
+    const email = document.getElementById("email").value;
+    const payable_amount = document.getElementById("payable_amount").value;
+    const unused_credit = document.getElementById("unused_credit").value;
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/vendorupdate",
+        {
+          id,
+          name,
+          company_name,
+          email,
+          payable_amount,
+          unused_credit
+          
+        },
+        { withCredentials: true }
+      );
       console.log(res);
       if (res) {
         alert(res.data.message);
-        setTimeout(() => {
-          navigate("/vendor_table"); //redirect to table
-        }, 1500);
+        navigate("/vendortable");
       } else {
         alert(res.data.error);
       }
@@ -62,58 +81,43 @@ const vendoradd = () => {
 
   return (
     <div>
-      <Card title="Add Vendor"> 
+      <Card title="Edit Vendor">
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
-              <Textinput
-                name = "name"
+            <Textinput
                 label="Name"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: viral gautami, ... etc."
+                placeholder="Ex: John, Smith, etc."
+                id="name"
               />
               <Textinput
-                name = "company_name"
                 label="Company Name"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: Titanslab, etc."
+                placeholder="Ex: John, Smith, etc."
+                id="company_name"
               />
               <Textinput
-                name = "email"
                 label="Email"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: viral@gmail.com,... etc"
+                placeholder="Ex: John, Smith, etc."
+                id="email"
               />
               <Textinput
-                name = "payable_amount"
                 label="Payable Amount"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: $5000,.. etc."
+                placeholder="Ex: John, Smith, etc."
+                id="payable_amount"
               />
-
               <Textinput
-                name = "unused_credit"
                 label="Unused Credit"
-                register={register}
-                onChange={submit}
-                placeholder="$8000"
-                isMask
+                placeholder="Ex: John, Smith, etc."
+                id="unused_credit"
               />
-            </div>
-            <div className="grid xl:grid-cols-1 grid-cols-1 gap-5">
-              <Textarea label="Address" id="pn4" name="address" placeholder="Address" register={register}
-                onChange={submit} />
             </div>
             <div className="ltr:text-left rtl:text-right">
-              <button className="btn btn-primary text-center" onClick={custadd}>Submit</button>
+              <button
+                className="btn btn-primary text-center"
+                onClick={vendoredit}
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
@@ -121,11 +125,6 @@ const vendoradd = () => {
       </Card>
     </div>
   );
-  
-};
+}
 
-
-export default vendoradd;
-
-
-
+export default vendoredit;
