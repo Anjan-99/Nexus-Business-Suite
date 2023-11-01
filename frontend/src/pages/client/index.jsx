@@ -23,15 +23,9 @@ import axios from "axios";
 const Client = () => {
   const [filterMap, setFilterMap] = useState("usa");
   const [user, setUser] = useState({});
-  const [total , setTotal] = useState({});
-  function getDate() {
-    const today = new Date();
-    const month = today.getMonth() + 1;
-    const year = today.getFullYear();
-    const date = today.getDate();
-    return `${month}/${date}/${year}`;
-  }
-  const [currentDate, setCurrentDate] = useState(getDate());
+  const [total, setTotal] = useState({});
+  const [countrylist, setcountry] = useState({});
+  const [count , setcount] = useState({});
   const auth = async () => {
     try {
       const res = await axios.get("http://localhost:5000/verify", {
@@ -61,7 +55,42 @@ const Client = () => {
     } catch (err) {
       console.log(err);
     }
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/invoice_find_address",
+        {
+          method: "GET",
+          withCredentials: true,
+          header: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        }
+      );
+      const user2 = res.data;
+      setcountry(user2);
+    } catch (err) {
+      console.log(err);
+    }
+    try {
+      const res = await axios.get(
+        "http://localhost:5000/fetchvendorcustomer", {
+        method: "GET",
+        withCredentials: true,
+        header: {
+          "Content-Type": "application/json",
+          accept: "application/json",
+        },
+      }
+      );
+      const user3 = res.data;
+      setcount(user3);
+    } catch (err) {
+      console.log(err);
+    }
   };
+  //fetch count 
+  
 
   useEffect(() => {
     auth();
@@ -85,10 +114,10 @@ const Client = () => {
               <p className="text-sm dark:text-slate-300">Welcome to Nexus</p>
             </div>
           </div>
-          <GroupChart5 
-          cashFlowCount={total.cashflow}
-          expensesCount={total.expense}
-          revenueCount={total.cashflow- total.expense}
+          <GroupChart5
+            cashFlowCount={total.cashflow}
+            expensesCount={total.expense}
+            revenueCount={total.cashflow - total.expense}
           />
         </div>
       </Card>
@@ -96,7 +125,7 @@ const Client = () => {
       <div className="grid grid-cols-7 gap-5 mb-5">
         <div className="2xl:col-span-9 lg:col-span-8 col-span-12">
           <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-4">
-            <GroupChart2 />
+            <GroupChart2 vendorcount={count.vendorcount} customercount={count.customercount}/>
           </div>
         </div>
       </div>
@@ -111,50 +140,20 @@ const Client = () => {
         <div className="2xl:col-span-4 lg:col-span-5 col-span-12">
           <Card title="Statistic" headerslot={<SelectMonth />}>
             <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
-              <OrderChart />
-              <ProfitChart />
+              <OrderChart cashFlowCount={total.cashflow}/>
+              <ProfitChart expensesCount={total.expense} />
               <div className="md:col-span-2">
-                <EarningChart />
+                <EarningChart cashFlowCount={total.cashflow} expensesCount={total.expense} />
               </div>
             </div>
           </Card>
         </div>
         <div className="lg:col-span-12 col-span-12">
-            <Customertable />
+          <Customertable />
         </div>
         <div className="lg:col-span-12 col-span-12">
-          <Card
-            title="Most Sales"
-            headerslot={
-              <div className="border border-slate-200 dark:border-slate-700 dark:bg-slate-900 rounded p-1 flex items-center">
-                <span
-                  className={` flex-1 text-sm font-normal px-3 py-1 transition-all duration-150 rounded cursor-pointer
-                ${
-                  filterMap === "global"
-                    ? "bg-slate-900 text-white dark:bg-slate-700 dark:text-slate-300"
-                    : "dark:text-slate-300"
-                }  
-                `}
-                  onClick={() => setFilterMap("global")}
-                >
-                  Global
-                </span>
-                <span
-                  className={` flex-1 text-sm font-normal px-3 py-1 rounded transition-all duration-150 cursor-pointer
-                  ${
-                    filterMap === "usa"
-                      ? "bg-slate-900 text-white dark:bg-slate-700 dark:text-slate-300"
-                      : "dark:text-slate-300"
-                  }
-              `}
-                  onClick={() => setFilterMap("usa")}
-                >
-                  USA
-                </span>
-              </div>
-            }
-          >
-            <MostSales filterMap={filterMap} />
+          <Card title="Most Sales">
+            {/* <MostSales allcountrylist={countrylist} /> */}
           </Card>
         </div>
       </div>

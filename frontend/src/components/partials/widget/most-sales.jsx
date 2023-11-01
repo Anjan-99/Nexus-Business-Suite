@@ -1,62 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import world from "@/constant/world-map.json";
 import { VectorMap } from "@south-paw/react-vector-maps";
 
-const slaes = [
+const slaes = (allcountrylist,) => [
   {
-    title: "Nevada",
-    amount: "$125k",
+    title: `${allcountrylist[0].country}`,
+    amount: `$${allcountrylist[0].totalAmount}`,
     cls: "bg-primary-500 ring-primary-500",
   },
   {
-    title: "Colorado",
-    amount: "$$325k",
+    title: `${allcountrylist[1].country}`,
+    amount: `$${allcountrylist[1].totalAmount}`,
     cls: "bg-success-500 ring-success-500",
   },
   {
-    title: "Iowa",
-    amount: "$67",
+    title: `${allcountrylist[2].country}`,
+    amount: `$${allcountrylist[2].totalAmount}`,
     cls: "bg-info-500 ring-info-500",
   },
   {
-    title: "Arkansas",
-    amount: "$354k",
+    title: `${allcountrylist[3].country}`,
+    amount: `$${allcountrylist[3].totalAmount}`,
     cls: "bg-warning-500 ring-warning-500",
   },
   {
-    title: "Wyoming",
-    amount: "$195k",
+    title: `${allcountrylist[4].country}`,
+    amount: `$${allcountrylist[4].totalAmount}`,
     cls: "bg-success-500 ring-success-500",
   },
   {
-    title: "Other countries",
-    amount: "$295k",
+    title: `${allcountrylist[5].country}`,
+    amount: `$${allcountrylist[5].totalAmount}`,
     cls: "bg-secondary-500 ring-secondary-500",
   },
 ];
 
-const MostSales = ({ filterMap }) => {
+const MostSales = ( props ) => {
+  const { allcountrylist } = props;
+  const updatedStatistics = slaes(allcountrylist);
   return (
     <div className="md:flex items-center">
       <div className="flex-none">
         <h4 className="text-slate-600 dark:text-slate-200 text-sm font-normal mb-[6px]">
           Total earnings
         </h4>
-        {filterMap === "usa" && (
-          <div className="text-lg font-medium mb-[6px] dark:text-white text-slate-900">
-            $12,65,64787.00
-          </div>
-        )}
-        {filterMap === "global" && (
-          <div className="text-lg font-medium mb-[6px] dark:text-white text-slate-900">
-            $12,65.00
-          </div>
-        )}
         <div className="text-xs font-light dark:text-slate-200">
           <span className="text-primary-500">+08%</span> From last month
         </div>
         <ul className="bg-slate-50 dark:bg-slate-900 rounded p-4 min-w-[184px] space-y-5 mt-4">
-          {slaes.map((item, i) => (
+          {updatedStatistics.map((item, i) => (
             <li
               key={i}
               className="flex justify-between text-xs text-slate-600 dark:text-slate-300"

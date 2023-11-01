@@ -2,10 +2,11 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { colors } from "@/constant/data";
 
-const OrderChart = ({
+const OrderChart = (props,{
   className = "bg-slate-50 dark:bg-slate-900 rounded pt-3 px-4",
   barColor = colors.warning,
 }) => {
+  const {cashFlowCount} = props;
   const series = [
     {
       name: "Revenue",
@@ -80,7 +81,7 @@ const OrderChart = ({
         Orders
       </div>
       <div className="text-lg text-slate-900 dark:text-white font-medium mb-[6px]">
-        123k
+        ${cashFlowCount}
       </div>
       <div className="font-normal text-xs text-slate-600 dark:text-slate-300">
         <span className="text-warning-500">-60% </span>

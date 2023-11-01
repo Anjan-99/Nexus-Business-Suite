@@ -3,14 +3,14 @@ import Chart from "react-apexcharts";
 
 import useDarkMode from "@/hooks/useDarkMode";
 
-const EarningChart = ({
+const EarningChart = (props,{
   className = "bg-slate-50 dark:bg-slate-900 rounded py-3 px-4 md:col-span-2",
 }) => {
+  const { cashFlowCount, expensesCount } = props;
   const [isDark] = useDarkMode();
-  const series = [44, 55];
-
+  const series = [cashFlowCount, expensesCount];
   const options = {
-    labels: ["success", "Return"],
+    labels: ["Earning", "Expenses"],
     dataLabels: {
       enabled: false,
     },
@@ -62,7 +62,7 @@ const EarningChart = ({
             Earnings
           </div>
           <div className="text-lg text-slate-900 dark:text-white font-medium mb-[6px]">
-            $12,335.00
+            ${cashFlowCount - expensesCount}
           </div>
           <div className="font-normal text-xs text-slate-600 dark:text-slate-300">
             <span className="text-primary-500">+08%</span>

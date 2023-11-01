@@ -275,9 +275,7 @@ function App() {
           <Route path="vendorview/:id"  element={<Vendorview />} />
           <Route path="expensesview/:id"  element={<Expensesview />} />
           <Route path="billsview/:id"  element={<Billsview />} />
-
-
-
+          
 
           <Route path="customeredit/:id"  element={<Customeredit />} />
 

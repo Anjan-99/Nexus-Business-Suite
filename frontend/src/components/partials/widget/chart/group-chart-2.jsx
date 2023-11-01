@@ -73,7 +73,7 @@ const shapeLine1 = {
 const shapeLine2 = {
   series: [
     {
-      data: [800, 600, 1000, 800, 600, 1000, 800, 900],
+      data: [1000, 600, 800, 800, 600, 1000, 800, 900],
     },
   ],
   options: {
@@ -139,8 +139,8 @@ const shapeLine2 = {
 };
 const shapeLine3 = {
   series: [
-    {
-      data: [800, 600, 1000, 800, 600, 1000, 800, 900],
+    {//random data
+      data:[900 , 800 , 1000 , 800 , 600 , 1000 , 800 , 900]
     },
   ],
   options: {
@@ -205,11 +205,11 @@ const shapeLine3 = {
   },
 };
 
-const statistics = [
+const statistics  = (vendorcount , customercount) => [
   {
     name: shapeLine1,
     title: "Totel Customers",
-    count: "10",
+    count: `${customercount}`,
     bg: "bg-[#E5F9FF] dark:bg-slate-900	",
     text: "text-info-500",
     icon: "heroicons:shopping-cart",
@@ -217,7 +217,7 @@ const statistics = [
   {
     name: shapeLine2,
     title: "Vendors",
-    count: "10",
+    count: `${vendorcount}`,
     bg: "bg-[#FFEDE6] dark:bg-slate-900	",
     text: "text-warning-500",
     icon: "heroicons:cube",
@@ -232,11 +232,13 @@ const statistics = [
   },
 ];
 
-const GroupChart2 = () => {
+const GroupChart2 = (props) => {
+  const {vendorcount , customercount} = props;
+  const updatedStatistics = statistics(vendorcount , customercount);
   return (
     <>
       {" "}
-      {statistics.map((item, i) => (
+      {updatedStatistics.map((item, i) => (
         <div key={i}>
           <Card bodyClass="pt-4 pb-3 px-4">
             <div className="flex space-x-3 rtl:space-x-reverse">
