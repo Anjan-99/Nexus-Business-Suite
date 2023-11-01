@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@/components/ui/Card";
 import Textinput from "@/components/ui/Textinput";
 import InputGroup from "@/components/ui/InputGroup";
@@ -6,52 +6,66 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as yup from "yup";
-import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
-const billsadd = () => {
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
+const billsedit = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  const [cust , setUser] = useState()
-  const submit = (e) => {
-    const { name, value } = e.target;
-    setUser({...cust,[name]:value})
-  }
-
-  const custadd = async (e) => {
-    e.preventDefault();
-    
-    const { vendor_name, bill, bill_date, due_date, amount} = cust; //form inputs
+  const [user, setUser] = useState({});
+  const getdata = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/customer_add", {
-        vendor_name,
-        bill,
-        bill_date,
-        due_date,
-        amount
-      },{ withCredentials: true });
+      const res = await axios.get(
+        `http://localhost:5000/bill_find/${id}`,
+        {
+          method: "GET",
+          withCredentials: true,
+          header: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        },
+        { withCredentials: true }
+      );
+      const user = res.data;
+      setUser(user);
+      document.getElementById("bill").value = user.bill;
+      document.getElementById("vendor_name").value = user.vendor_name;
+      document.getElementById("amount").value = user.amount;
+      document.getElementById("status").value = user.status;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  const billsedit = async (e) => {
+    e.preventDefault(); //form inputs
+    const id = user._id;
+    const bill = document.getElementById("bill").value;
+    const vendor_name = document.getElementById("vendor_name").value;
+    const amount = document.getElementById("amount").value;
+    const status = document.getElementById("status").value;
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/billsupdate",
+        {
+          id,
+          bill,
+          vendor_name,
+          amount,
+          status,
+        },
+        { withCredentials: true }
+      );
       console.log(res);
       if (res) {
         alert(res.data.message);
-        setTimeout(() => {
-          navigate("/bill_table"); //redirect to table
-        }, 1500);
+        navigate("/bills");
       } else {
         alert(res.data.error);
       }
@@ -62,57 +76,38 @@ const billsadd = () => {
 
   return (
     <div>
-      <Card title="Add Bill"> 
+      <Card title="Edit Bills">
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
-              <Textinput
-                name = "vendor_name"
-                label="Vendor Name"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: viral gautami, ... etc."
-              />
-              <Textinput
-                name = "bill"
+            <Textinput
                 label="Bill"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: flat_fee, etc."
+                placeholder="Ex: John, Smith, etc."
+                id="bill"
               />
               <Textinput
-                name = "bill_date"
-                label="Bill Date"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: 24/09/2023,... etc"
+                label="Vendor Name"
+                placeholder="Ex: John, Smith, etc."
+                id="vendor_name"
               />
               <Textinput
-                name = "due_date"
-                label="Due Date"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: 25/09/2023,.. etc."
-              />
-              <Textinput
-                name = "amount"
                 label="Amount"
-                register={register}
-                onChange={submit}
-                placeholder="Ex: $6000,... etc."
-                isMask
+                placeholder="Ex: John, Smith, etc."
+                id="amount"
               />
-            </div>
-            <div className="grid xl:grid-cols-1 grid-cols-1 gap-5">
-              <Textarea label="Address" id="pn4" name="address" placeholder="Address" register={register}
-                onChange={submit} />
+              <InputGroup
+                label="Status"
+                placeholder="Ex: Paid, Unpaid"
+                id="status"
+              />
             </div>
             <div className="ltr:text-left rtl:text-right">
-              <button className="btn btn-primary text-center" onClick={custadd}>Submit</button>
+              <button
+                className="btn btn-primary text-center"
+                onClick={billsedit}
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
@@ -120,11 +115,6 @@ const billsadd = () => {
       </Card>
     </div>
   );
-  
-};
+}
 
-
-export default billsadd;
-
-
-
+export default billsedit;

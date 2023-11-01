@@ -101,6 +101,11 @@ const Expenses = ({ title = "Expenses Table" }) => {
           navigate(`/expensesview/${id}`);
         };
 
+        const expensesedit = async (e) => {
+          e.preventDefault();
+          navigate(`/expensesedit/${id}`);
+        };
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -119,7 +124,7 @@ const Expenses = ({ title = "Expenses Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={expensesedit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

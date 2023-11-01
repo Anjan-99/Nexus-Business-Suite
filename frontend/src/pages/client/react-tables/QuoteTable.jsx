@@ -131,6 +131,11 @@ const Quotetable = ({ title = "Quote Table" }) => {
           navigate(`/quoteview/${id}`);
         };
 
+        const quoteedit = async (e) => {
+          e.preventDefault();
+          navigate(`/quoteedit/${id}`);
+        }; 
+
         return (
           <div className="flex space-x-3 rtl:space-x-reverse">
             <Tooltip
@@ -149,7 +154,7 @@ const Quotetable = ({ title = "Quote Table" }) => {
               arrow
               animation="shift-away"
             >
-              <button className="action-btn" type="button">
+              <button className="action-btn" onClick={quoteedit} type="button">
                 <Icon icon="heroicons:pencil-square" />
               </button>
             </Tooltip>

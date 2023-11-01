@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Card from "@/components/ui/Card";
 import Textinput from "@/components/ui/Textinput";
 import InputGroup from "@/components/ui/InputGroup";
@@ -6,53 +6,71 @@ import Textarea from "@/components/ui/Textarea";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as yup from "yup";
-import CustAdd from "./react-tables/CustAdd";
 import axios from "axios";
 
-const schema = yup
-  .object({
-    email: yup.string().email("Invalid email").required("Email is Required"),
-    password: yup.string().required("Password is Required"),
-  })
-  .required();
-const paymentadd = () => {
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(schema),
-    //
-    mode: "all",
-  });
+const paymentedit = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  const [cust , setUser] = useState()
-  const submit = (e) => {
-    const { name, value } = e.target;
-    setUser({...cust,[name]:value})
-  }
-
-  const custadd = async (e) => {
-    e.preventDefault();
-    
-    const { customer_name, invoice_number, mode_of_payment, date, amount, unused_amount} = cust; //form inputs
+  const [user, setUser] = useState({});
+  const getdata = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/customer_add", {
-        customer_name,
-        invoice_number,
-        mode_of_payment,
-        date,
-        amount,
-        unused_amount
-      },{ withCredentials: true });
+      const res = await axios.get(
+        `http://localhost:5000/payment_find/${id}`,
+        {
+          method: "GET",
+          withCredentials: true,
+          header: {
+            "Content-Type": "application/json",
+            accept: "application/json",
+          },
+        },
+        { withCredentials: true }
+      );
+      const user = res.data;
+      console.log("user", user);
+      setUser(user);
+      document.getElementById("customer_name").value = user.customer_name;
+      document.getElementById("invoice_number").value = user.invoice_number;
+      document.getElementById("mode_of_payment").value = user.mode_of_payment;
+      document.getElementById("amount").value = user.amount;
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
+
+  const paymentedit = async (e) => {
+    e.preventDefault(); //form inputs
+    const id = user._id;
+    const date = user.date;
+    const customer_name = document.getElementById("customer_name").value;
+    const invoice_number = document.getElementById("invoice_number").value;
+    const mode_of_payment = document.getElementById("mode_of_payment").value;
+    const amount = document.getElementById("amount").value;
+
+    
+    try {
+      const res = await axios.put(
+        "http://localhost:5000/paymentupdate",
+        {
+          id,
+          date,
+          customer_name,
+          invoice_number,
+          mode_of_payment,
+          amount,
+        },
+        { withCredentials: true }
+      );
       console.log(res);
       if (res) {
         alert(res.data.message);
-        setTimeout(() => {
-          navigate("/payment_table"); //redirect to table
-        }, 1500);
+        navigate("/paymenttable");
       } else {
         alert(res.data.error);
       }
@@ -63,66 +81,39 @@ const paymentadd = () => {
 
   return (
     <div>
-      <Card title="Add Payment Records"> 
+      <Card title="Edit Payment">
         <div>
           <form className="space-y-4 ">
             <div className="grid xl:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-5">
-              <Textinput
-                name = "customer_name"
+            <Textinput
                 label="Customer Name"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: 0001, 2222, etc."
+                placeholder="Ex: John, Smith, etc."
+                id="customer_name"
               />
               <Textinput
-                name = "invoice_number"
                 label="Invoice Number"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: anjan0001, etc."
+                placeholder="Ex: 123456789"
+                id="invoice_number"
               />
+            
               <Textinput
-                name = "mode_of_payment"
                 label="Mode of Payment"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: online,offline etc"
+                placeholder="Ex: Cash, Credit, etc."
+                id="mode_of_payment"
               />
               <Textinput
-                name = "date"
-                label="Date"
-                register={register}
-                onChange={submit}
-                isMask
-                placeholder="Ex: 27/09/2023 etc."
-              />
-
-              <Textinput
-                name = "amount"
                 label="Amount"
-                register={register}
-                onChange={submit}
-                placeholder="$8000"
-                isMask
+                placeholder="Ex: 1000"
+                id="amount"
               />
-              <Textinput
-                name = "unused_amount"
-                label="Unused Amount"
-                register={register}
-                onChange={submit}
-                placeholder="$8000"
-                isMask
-              />
-            </div>
-            <div className="grid xl:grid-cols-1 grid-cols-1 gap-5">
-              <Textarea label="Address" id="pn4" name="address" placeholder="Address" register={register}
-                onChange={submit} />
             </div>
             <div className="ltr:text-left rtl:text-right">
-              <button className="btn btn-primary text-center" onClick={custadd}>Submit</button>
+              <button
+                className="btn btn-primary text-center"
+                onClick={paymentedit}
+              >
+                Submit
+              </button>
             </div>
           </form>
         </div>
@@ -130,11 +121,6 @@ const paymentadd = () => {
       </Card>
     </div>
   );
-  
-};
+}
 
-
-export default paymentadd;
-
-
-
+export default paymentedit;

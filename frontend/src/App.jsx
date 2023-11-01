@@ -36,6 +36,13 @@ const Expensesview = lazy(() => import("./pages/client/expenses_view"));
 const Billsview = lazy(() => import("./pages/client/bills_view"));
 
 const Customeredit = lazy(() => import("./pages/client/cust_edit"));
+const Invoiceedit = lazy(() => import("./pages/client/invoice_edit"));
+const Quoteedit = lazy(() => import("./pages/client/quotes_edit"));
+const Paymentedit = lazy(() => import("./pages/client/Payment_edit"));
+const Employeeedit = lazy(() => import("./pages/client/employee_edit"));
+const Vendoredit = lazy(() => import("./pages/client/vendor_edit"));
+const Expensesedit = lazy(() => import("./pages/client/expenses_edit"));
+const Billsedit = lazy(() => import("./pages/client/bills_edit"));
 
 const Dashboard = lazy(() => import("./pages/dashboard"));
 const Ecommerce = lazy(() => import("./pages/dashboard/ecommerce"));
@@ -278,7 +285,13 @@ function App() {
           
 
           <Route path="customeredit/:id"  element={<Customeredit />} />
-
+          <Route path="invoiceedit/:id"  element={<Invoiceedit />} />
+          <Route path="quoteedit/:id"  element={<Quoteedit />} />
+          <Route path="paymentedit/:id"  element={<Paymentedit />} />
+          <Route path="employeeedit/:id"  element={<Employeeedit />} />
+          <Route path="vendoredit/:id"  element={<Vendoredit />} />
+          <Route path="expensesedit/:id"  element={<Expensesedit />} />
+          <Route path="billsedit/:id"  element={<Billsedit />} />
 
 
 
